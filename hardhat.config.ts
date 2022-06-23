@@ -14,7 +14,11 @@ import 'tsconfig-paths/register';
 
 const networks: NetworksUserConfig =
   env.isHardhatCompile() || env.isHardhatClean() || env.isTesting()
-    ? {}
+    ? {
+        hardhat: {
+          allowUnlimitedContractSize: true,
+        },
+      }
     : {
         hardhat: {
           forking: {
@@ -46,7 +50,7 @@ const config: HardhatUserConfig = {
   solidity: {
     compilers: [
       {
-        version: '0.8.7',
+        version: '0.8.14',
         settings: {
           optimizer: {
             enabled: true,

@@ -1,33 +1,27 @@
 {
-  "name": "hardhat-boilerplate",
-  "version": "0.0.0",
-  "description": "Hardhat boilerplate",
+  "name": "yearn-strategies-keeper",
+  "version": "2.0.0",
+  "description": "Yearn Strategies Keeper",
   "keywords": [
     "ethereum",
-    "smart",
-    "contracts",
-    "test",
     "solidity",
-    "hardhat",
-    "boilerplate"
+    "yearn-finance",
+    "yearn-strategies",
+    "keep3r-network"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/defi-wonderland/hardhat-boilerplate-ts.git"
+    "url": "git+https://github.com/defi-wonderland/yearn-keep3r-jobs.git"
   },
   "license": "AGPL-3.0-only",
   "contributors": [
     {
-      "name": "404skillz",
-      "url": "https://github.com/404skillz"
+      "name": "wei3erHase",
+      "url": "https://github.com/wei3erHase"
     },
     {
       "name": "0xGorilla",
       "url": "https://github.com/0xGorilla"
-    },
-    {
-      "name": "wei3erHase",
-      "url": "https://github.com/wei3erHase"
     }
   ],
   "files": [
@@ -50,7 +44,7 @@
     "fork:node": "cross-env FORK=true hardhat node",
     "fork:script": "cross-env FORK=true hardhat run",
     "postinstall": "husky install && yarn compile:test",
-    "lint:check": "cross-env solhint 'contracts/**/*.sol' 'interfaces/**/*.sol' && cross-env prettier --check './**'",
+    "lint:check": "cross-env solhint 'solidity/**/*.sol' && cross-env prettier --check './**'",
     "lint:fix": "sort-package-json && cross-env prettier --write './**' && cross-env solhint --fix 'contracts/**/*.sol' 'interfaces/**/*.sol'",
     "prepare": "husky install",
     "prepublishOnly": "hardhat clean && hardhat compile && pinst --disable",
@@ -68,7 +62,7 @@
   },
   "lint-staged": {
     "*.{js,css,md,ts,sol}": "prettier --write",
-    "*.sol": "cross-env solhint --fix 'contracts/**/*.sol' 'interfaces/**/*.sol'",
+    "*.sol": "cross-env solhint --fix 'solidity/**/*.sol'",
     "package.json": "sort-package-json"
   },
   "resolutions": {
@@ -77,7 +71,8 @@
     "eth-gas-reporter/colors": "1.4.0"
   },
   "dependencies": {
-    "@openzeppelin/contracts": "4.6.0"
+    "@openzeppelin/contracts": "4.6.0",
+    "@yearn-mechanics/contract-utils": "0.1.2"
   },
   "devDependencies": {
     "@codechecks/client": "0.1.12",
@@ -86,6 +81,7 @@
     "@defi-wonderland/smock": "2.0.7",
     "@dethcrypto/eth-sdk": "0.3.1",
     "@dethcrypto/eth-sdk-client": "0.1.6",
+    "@lbertenasco/bonded-stealth-tx": "0.3.1",
     "@nomiclabs/hardhat-ethers": "npm:hardhat-deploy-ethers@0.3.0-beta.13",
     "@nomiclabs/hardhat-etherscan": "3.0.3",
     "@nomiclabs/hardhat-waffle": "2.0.3",
@@ -98,6 +94,8 @@
     "@types/node": "17.0.31",
     "@uniswap/v2-core": "1.0.1",
     "@uniswap/v2-periphery": "1.1.0-beta.0",
+    "@uniswap/v3-core": "1.0.2-solc-0.8-simulate",
+    "@uniswap/v3-periphery": "1.4.1",
     "chai": "4.3.6",
     "chai-as-promised": "7.1.1",
     "cross-env": "7.0.3",
@@ -118,6 +116,7 @@
     "solc-0.8": "npm:solc@0.8.13",
     "solhint": "3.3.7",
     "solhint-plugin-prettier": "0.0.5",
+    "solhint-plugin-wonderland": "0.0.1",
     "solidity-coverage": "0.7.21",
     "solidity-docgen": "0.5.16",
     "sort-package-json": "1.57.0",

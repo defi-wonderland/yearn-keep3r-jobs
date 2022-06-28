@@ -50,8 +50,8 @@ interface IV2KeeperJob {
   function workCooldown() external view returns (uint256 _workCooldown);
 
   /// @param _strategy Address of the strategy to query
-  /// @return _workable Whether the queried strategy is workable or not
-  function workable(address _strategy) external view returns (bool _workable);
+  /// @return _isWorkable Whether the queried strategy is workable or not
+  function workable(address _strategy) external view returns (bool _isWorkable);
 
   /// @param _strategy Address of the strategy to query
   /// @return _lastWorkAt Timestamp of the last time the strategy was worked

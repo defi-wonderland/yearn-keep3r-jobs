@@ -49,7 +49,7 @@ contract HarvestV2Keep3rStealthJob is IV2Keep3rStealthJob, V2KeeperJob, Pausable
   // views
 
   /// @inheritdoc IV2KeeperJob
-  function workable(address _strategy) external view returns (bool) {
+  function workable(address _strategy) external view returns (bool _isWorkable) {
     return _workable(_strategy);
   }
 
@@ -74,7 +74,7 @@ contract HarvestV2Keep3rStealthJob is IV2Keep3rStealthJob, V2KeeperJob, Pausable
 
   // internals
 
-  function _workable(address _strategy) internal view override returns (bool) {
+  function _workable(address _strategy) internal view override returns (bool _isWorkable) {
     if (!super._workable(_strategy)) return false;
     return IBaseStrategy(_strategy).harvestTrigger(_getCallCosts(_strategy));
   }

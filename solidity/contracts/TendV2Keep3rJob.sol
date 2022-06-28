@@ -44,7 +44,7 @@ contract TendV2Keep3rJob is IKeep3rJob, V2KeeperJob, Pausable, Keep3rMeteredPubl
   // views
 
   /// @inheritdoc IV2KeeperJob
-  function workable(address _strategy) external view returns (bool) {
+  function workable(address _strategy) external view returns (bool _isWorkable) {
     return _workable(_strategy);
   }
 
@@ -62,7 +62,7 @@ contract TendV2Keep3rJob is IKeep3rJob, V2KeeperJob, Pausable, Keep3rMeteredPubl
 
   // internals
 
-  function _workable(address _strategy) internal view override returns (bool) {
+  function _workable(address _strategy) internal view override returns (bool _isWorkable) {
     if (!super._workable(_strategy)) return false;
     return IBaseStrategy(_strategy).tendTrigger(_getCallCosts(_strategy));
   }

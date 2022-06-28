@@ -8,6 +8,7 @@ import { removeConsoleLog } from 'hardhat-preprocessor';
 import 'hardhat-gas-reporter';
 import 'hardhat-deploy';
 import 'solidity-coverage';
+import 'solidity-docgen';
 import { HardhatUserConfig, MultiSolcUserConfig, NetworksUserConfig } from 'hardhat/types';
 import * as env from './utils/env';
 import 'tsconfig-paths/register';
@@ -79,6 +80,10 @@ const config: HardhatUserConfig = {
   },
   paths: {
     sources: './solidity',
+  },
+  docgen: {
+    pages: 'files',
+    collapseNewlines: true,
   },
 };
 

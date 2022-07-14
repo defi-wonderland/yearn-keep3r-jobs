@@ -1,0 +1,1603 @@
+{
+  "address": "0xcD7f72F12c4b87dAbd31d3aa478A1381150c32b3",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_governor",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_mechanicsRegistry",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_v2Keeper",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_workCooldown",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "_keep3r",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_keep3rHelper",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_bond",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_minBond",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_earned",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_age",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bool",
+          "name": "_onlyEOA",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [],
+      "name": "KeeperNotValid",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "MaxMultiplier",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "NoChangeInPause",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "OnlyEOA",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "OnlyGovernor",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "OnlyGovernorOrMechanic",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "OnlyPendingGovernor",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "Paused",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "StrategyAlreadyAdded",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "StrategyNotAdded",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "StrategyNotWorkable",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "WrongLengths",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "ZeroAddress",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "ZeroCooldown",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "_strategy",
+          "type": "address"
+        }
+      ],
+      "name": "ForceWorked",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "_gasBonus",
+          "type": "uint256"
+        }
+      ],
+      "name": "GasBonusSet",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "_initialGas",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "_gasAfterWork",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "_bonus",
+          "type": "uint256"
+        }
+      ],
+      "name": "GasMetered",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "_gasMultiplier",
+          "type": "uint256"
+        }
+      ],
+      "name": "GasMultiplierSet",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "_keep3rHelper",
+          "type": "address"
+        }
+      ],
+      "name": "Keep3rHelperSet",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "_bond",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "_minBond",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "_earned",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "_age",
+          "type": "uint256"
+        }
+      ],
+      "name": "Keep3rRequirementsSet",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "_keep3r",
+          "type": "address"
+        }
+      ],
+      "name": "Keep3rSet",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "_strategy",
+          "type": "address"
+        }
+      ],
+      "name": "KeeperWorked",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "_maxMultiplier",
+          "type": "uint256"
+        }
+      ],
+      "name": "MaxMultiplierSet",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "bool",
+          "name": "_onlyEOA",
+          "type": "bool"
+        }
+      ],
+      "name": "OnlyEOASet",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "bool",
+          "name": "_paused",
+          "type": "bool"
+        }
+      ],
+      "name": "PauseSet",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "_newGovernor",
+          "type": "address"
+        }
+      ],
+      "name": "PendingGovernorAccepted",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "_governor",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "_pendingGovernor",
+          "type": "address"
+        }
+      ],
+      "name": "PendingGovernorSet",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "_strategy",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "_requiredAmount",
+          "type": "uint256"
+        }
+      ],
+      "name": "StrategyAdded",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "_strategy",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "_requiredAmount",
+          "type": "uint256"
+        }
+      ],
+      "name": "StrategyModified",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "_strategy",
+          "type": "address"
+        }
+      ],
+      "name": "StrategyRemoved",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "BASE",
+      "outputs": [
+        {
+          "internalType": "uint32",
+          "name": "",
+          "type": "uint32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "acceptPendingGovernor",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address[]",
+          "name": "_strategies",
+          "type": "address[]"
+        },
+        {
+          "internalType": "uint256[]",
+          "name": "_requiredAmounts",
+          "type": "uint256[]"
+        }
+      ],
+      "name": "addStrategies",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_strategy",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_requiredAmount",
+          "type": "uint256"
+        }
+      ],
+      "name": "addStrategy",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_strategy",
+          "type": "address"
+        }
+      ],
+      "name": "forceWork",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "gasBonus",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "gasMultiplier",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "governor",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_mechanic",
+          "type": "address"
+        }
+      ],
+      "name": "isMechanic",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "_isMechanic",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "keep3r",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "keep3rHelper",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "lastWorkAt",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "maxMultiplier",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "mechanicsRegistry",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "_mechanicRegistry",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "onlyEOA",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "paused",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "pendingGovernor",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_strategy",
+          "type": "address"
+        }
+      ],
+      "name": "removeStrategy",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "requiredAge",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "requiredAmount",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "requiredBond",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "requiredEarnings",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "requiredMinBond",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_gasBonus",
+          "type": "uint256"
+        }
+      ],
+      "name": "setGasBonus",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_gasMultiplier",
+          "type": "uint256"
+        }
+      ],
+      "name": "setGasMultiplier",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_keep3r",
+          "type": "address"
+        }
+      ],
+      "name": "setKeep3r",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_keep3rHelper",
+          "type": "address"
+        }
+      ],
+      "name": "setKeep3rHelper",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_bond",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_minBond",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_earned",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_age",
+          "type": "uint256"
+        }
+      ],
+      "name": "setKeep3rRequirements",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_maxMultiplier",
+          "type": "uint256"
+        }
+      ],
+      "name": "setMaxMultiplier",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_mechanicsRegistry",
+          "type": "address"
+        }
+      ],
+      "name": "setMechanicsRegistry",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bool",
+          "name": "_onlyEOA",
+          "type": "bool"
+        }
+      ],
+      "name": "setOnlyEOA",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bool",
+          "name": "_paused",
+          "type": "bool"
+        }
+      ],
+      "name": "setPause",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_pendingGovernor",
+          "type": "address"
+        }
+      ],
+      "name": "setPendingGovernor",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_v2Keeper",
+          "type": "address"
+        }
+      ],
+      "name": "setV2Keeper",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_workCooldown",
+          "type": "uint256"
+        }
+      ],
+      "name": "setWorkCooldown",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "strategies",
+      "outputs": [
+        {
+          "internalType": "address[]",
+          "name": "_strategies",
+          "type": "address[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_strategy",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_requiredAmount",
+          "type": "uint256"
+        }
+      ],
+      "name": "updateRequiredAmount",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address[]",
+          "name": "_strategies",
+          "type": "address[]"
+        },
+        {
+          "internalType": "uint256[]",
+          "name": "_requiredAmounts",
+          "type": "uint256[]"
+        }
+      ],
+      "name": "updateRequiredAmounts",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "v2Keeper",
+      "outputs": [
+        {
+          "internalType": "contract IV2Keeper",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_strategy",
+          "type": "address"
+        }
+      ],
+      "name": "work",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "workCooldown",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_strategy",
+          "type": "address"
+        }
+      ],
+      "name": "workable",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "_isWorkable",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0x40aca4242904d92f1c5a6defea82c5833b3fba62c01f08c918a8b0cf4fce58e0",
+  "receipt": {
+    "to": null,
+    "from": "0x5FcdC32DfC361a32e9d5AB9A384b890C62D0b8AC",
+    "contractAddress": "0xcD7f72F12c4b87dAbd31d3aa478A1381150c32b3",
+    "transactionIndex": 235,
+    "gasUsed": "1798106",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000400000000000000800000000000000000000000100000000000000000000000000000000000000000080000200000000000000000000000000000000000000000000000000000000000000000000000000000080000000008000000000040000000002000000000000000000000000000100000000200000000040000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000000000000000000020000000000000000",
+    "blockHash": "0x96b488e0d91b58ff90f343c795e2dcd5db3806c3ae76b6e63d05c260b0ae18af",
+    "transactionHash": "0x40aca4242904d92f1c5a6defea82c5833b3fba62c01f08c918a8b0cf4fce58e0",
+    "logs": [
+      {
+        "transactionIndex": 235,
+        "blockNumber": 15122190,
+        "transactionHash": "0x40aca4242904d92f1c5a6defea82c5833b3fba62c01f08c918a8b0cf4fce58e0",
+        "address": "0xcD7f72F12c4b87dAbd31d3aa478A1381150c32b3",
+        "topics": [
+          "0x0fec338132ef1fa68cd11242357e5e5e5af67dfd0c957b53ef411bca535817ef"
+        ],
+        "data": "0x000000000000000000000000eb02addcfd8b773a5ffa6b9d1fe99c566f8c44cc",
+        "logIndex": 272,
+        "blockHash": "0x96b488e0d91b58ff90f343c795e2dcd5db3806c3ae76b6e63d05c260b0ae18af"
+      },
+      {
+        "transactionIndex": 235,
+        "blockNumber": 15122190,
+        "transactionHash": "0x40aca4242904d92f1c5a6defea82c5833b3fba62c01f08c918a8b0cf4fce58e0",
+        "address": "0xcD7f72F12c4b87dAbd31d3aa478A1381150c32b3",
+        "topics": [
+          "0x77e14ebc8982ca2b21d8410b77a6ca8a857864dfab5d337f154fbacea73c1191"
+        ],
+        "data": "0x000000000000000000000000d36ac9ff5562abb541f51345f340fb650547a661",
+        "logIndex": 273,
+        "blockHash": "0x96b488e0d91b58ff90f343c795e2dcd5db3806c3ae76b6e63d05c260b0ae18af"
+      },
+      {
+        "transactionIndex": 235,
+        "blockNumber": 15122190,
+        "transactionHash": "0x40aca4242904d92f1c5a6defea82c5833b3fba62c01f08c918a8b0cf4fce58e0",
+        "address": "0xcD7f72F12c4b87dAbd31d3aa478A1381150c32b3",
+        "topics": [
+          "0xadc260414d0381ec9727c6f819aa0ebe789ad81016c176765f40d3bc301e5d6b"
+        ],
+        "data": "0x0000000000000000000000001ceb5cb57c4d4e2b2433641b95dd330a33185a44000000000000000000000000000000000000000000000002b5e3af16b188000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "logIndex": 274,
+        "blockHash": "0x96b488e0d91b58ff90f343c795e2dcd5db3806c3ae76b6e63d05c260b0ae18af"
+      },
+      {
+        "transactionIndex": 235,
+        "blockNumber": 15122190,
+        "transactionHash": "0x40aca4242904d92f1c5a6defea82c5833b3fba62c01f08c918a8b0cf4fce58e0",
+        "address": "0xcD7f72F12c4b87dAbd31d3aa478A1381150c32b3",
+        "topics": [
+          "0xa9bf0ee725a8887f07a03c36e33aa100bb0218d44b9fff855be8504c480ab99b"
+        ],
+        "data": "0x0000000000000000000000000000000000000000000000000000000000000001",
+        "logIndex": 275,
+        "blockHash": "0x96b488e0d91b58ff90f343c795e2dcd5db3806c3ae76b6e63d05c260b0ae18af"
+      }
+    ],
+    "blockNumber": 15122190,
+    "cumulativeGasUsed": "17031801",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [
+    "0x2c01b4ad51a67e2d8f02208f54df9ac4c0b778b6",
+    "0xe8d5a85758fe98f7dce251cad552691d49b499bb",
+    "0x736d7e3c5a6cb2ce3b764300140abf476f6cfccf",
+    300,
+    "0xeb02addCfD8B773A5FFA6B9d1FE99c566f8c44CC",
+    "0xD36Ac9Ff5562abb541F51345f340FB650547a661",
+    "0x1cEB5cB57C4D4E2b2433641b95Dd330A33185A44",
+    "50000000000000000000",
+    0,
+    0,
+    true
+  ],
+  "numDeployments": 1,
+  "solcInputHash": "5c49320b5df49a8a307c86afb4f87e1c",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.15+commit.e14f2714\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_governor\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_mechanicsRegistry\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_v2Keeper\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_workCooldown\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_keep3r\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_keep3rHelper\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_bond\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_minBond\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_earned\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_age\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"_onlyEOA\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"KeeperNotValid\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"MaxMultiplier\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NoChangeInPause\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"OnlyEOA\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"OnlyGovernor\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"OnlyGovernorOrMechanic\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"OnlyPendingGovernor\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"Paused\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"StrategyAlreadyAdded\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"StrategyNotAdded\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"StrategyNotWorkable\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"WrongLengths\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"ZeroAddress\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"ZeroCooldown\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_strategy\",\"type\":\"address\"}],\"name\":\"ForceWorked\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_gasBonus\",\"type\":\"uint256\"}],\"name\":\"GasBonusSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_initialGas\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_gasAfterWork\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_bonus\",\"type\":\"uint256\"}],\"name\":\"GasMetered\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_gasMultiplier\",\"type\":\"uint256\"}],\"name\":\"GasMultiplierSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_keep3rHelper\",\"type\":\"address\"}],\"name\":\"Keep3rHelperSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_bond\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_minBond\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_earned\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_age\",\"type\":\"uint256\"}],\"name\":\"Keep3rRequirementsSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_keep3r\",\"type\":\"address\"}],\"name\":\"Keep3rSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_strategy\",\"type\":\"address\"}],\"name\":\"KeeperWorked\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_maxMultiplier\",\"type\":\"uint256\"}],\"name\":\"MaxMultiplierSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"_onlyEOA\",\"type\":\"bool\"}],\"name\":\"OnlyEOASet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"_paused\",\"type\":\"bool\"}],\"name\":\"PauseSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_newGovernor\",\"type\":\"address\"}],\"name\":\"PendingGovernorAccepted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_governor\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_pendingGovernor\",\"type\":\"address\"}],\"name\":\"PendingGovernorSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_strategy\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_requiredAmount\",\"type\":\"uint256\"}],\"name\":\"StrategyAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_strategy\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_requiredAmount\",\"type\":\"uint256\"}],\"name\":\"StrategyModified\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_strategy\",\"type\":\"address\"}],\"name\":\"StrategyRemoved\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"BASE\",\"outputs\":[{\"internalType\":\"uint32\",\"name\":\"\",\"type\":\"uint32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"acceptPendingGovernor\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address[]\",\"name\":\"_strategies\",\"type\":\"address[]\"},{\"internalType\":\"uint256[]\",\"name\":\"_requiredAmounts\",\"type\":\"uint256[]\"}],\"name\":\"addStrategies\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_strategy\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_requiredAmount\",\"type\":\"uint256\"}],\"name\":\"addStrategy\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_strategy\",\"type\":\"address\"}],\"name\":\"forceWork\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"gasBonus\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"gasMultiplier\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"governor\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_mechanic\",\"type\":\"address\"}],\"name\":\"isMechanic\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"_isMechanic\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"keep3r\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"keep3rHelper\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"lastWorkAt\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"maxMultiplier\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"mechanicsRegistry\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"_mechanicRegistry\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"onlyEOA\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"paused\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"pendingGovernor\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_strategy\",\"type\":\"address\"}],\"name\":\"removeStrategy\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"requiredAge\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"requiredAmount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"requiredBond\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"requiredEarnings\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"requiredMinBond\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_gasBonus\",\"type\":\"uint256\"}],\"name\":\"setGasBonus\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_gasMultiplier\",\"type\":\"uint256\"}],\"name\":\"setGasMultiplier\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_keep3r\",\"type\":\"address\"}],\"name\":\"setKeep3r\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_keep3rHelper\",\"type\":\"address\"}],\"name\":\"setKeep3rHelper\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_bond\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_minBond\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_earned\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_age\",\"type\":\"uint256\"}],\"name\":\"setKeep3rRequirements\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_maxMultiplier\",\"type\":\"uint256\"}],\"name\":\"setMaxMultiplier\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_mechanicsRegistry\",\"type\":\"address\"}],\"name\":\"setMechanicsRegistry\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bool\",\"name\":\"_onlyEOA\",\"type\":\"bool\"}],\"name\":\"setOnlyEOA\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bool\",\"name\":\"_paused\",\"type\":\"bool\"}],\"name\":\"setPause\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_pendingGovernor\",\"type\":\"address\"}],\"name\":\"setPendingGovernor\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_v2Keeper\",\"type\":\"address\"}],\"name\":\"setV2Keeper\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_workCooldown\",\"type\":\"uint256\"}],\"name\":\"setWorkCooldown\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"strategies\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"_strategies\",\"type\":\"address[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_strategy\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_requiredAmount\",\"type\":\"uint256\"}],\"name\":\"updateRequiredAmount\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address[]\",\"name\":\"_strategies\",\"type\":\"address[]\"},{\"internalType\":\"uint256[]\",\"name\":\"_requiredAmounts\",\"type\":\"uint256[]\"}],\"name\":\"updateRequiredAmounts\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"v2Keeper\",\"outputs\":[{\"internalType\":\"contract IV2Keeper\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_strategy\",\"type\":\"address\"}],\"name\":\"work\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"workCooldown\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_strategy\",\"type\":\"address\"}],\"name\":\"workable\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"_isWorkable\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{\"addStrategies(address[],uint256[])\":{\"params\":{\"_requiredAmount\":\"Array of amount of gas that each strategy requires to execute\",\"_strategies\":\"Array of addresses of strategies to add\"}},\"addStrategy(address,uint256)\":{\"params\":{\"_requiredAmount\":\"Amount of gas that the strategy requires to execute\",\"_strategy\":\"Address of the strategy to add\"}},\"forceWork(address)\":{\"params\":{\"_strategy\":\"Address of the strategy to be worked\"}},\"removeStrategy(address)\":{\"params\":{\"_strategy\":\"Address of the strategy to remove\"}},\"setGasBonus(uint256)\":{\"params\":{\"_gasBonus\":\"New amount of gas to add to cover unaccounted gas\"}},\"setGasMultiplier(uint256)\":{\"params\":{\"_gasMultiplier\":\"New multiplier that boosts gas record to calculate the keeper reward\"}},\"setKeep3r(address)\":{\"params\":{\"_keep3r\":\"Address of the new Keep3r contract\"}},\"setKeep3rHelper(address)\":{\"params\":{\"_keep3rHelper\":\"Address of the new Keep3rHelper contract\"}},\"setKeep3rRequirements(address,uint256,uint256,uint256)\":{\"params\":{\"_age\":\"Amount of seconds since keeper registration required to work the job\",\"_bond\":\"Address of the token required to bond to work the job\",\"_earned\":\"Amount of KP3R earnings required to work the job\",\"_minBond\":\"Amount of tokens required to bond to work the job\"}},\"setMaxMultiplier(uint256)\":{\"params\":{\"_maxMultiplier\":\"New maximum acceptable gasMultiplier to be set\"}},\"setMechanicsRegistry(address)\":{\"params\":{\"_mechanicsRegistry\":\"Address of the new MechanicsRegistry contract\"}},\"setOnlyEOA(bool)\":{\"params\":{\"_onlyEOA\":\"Whether the keeper is required to be an EOA or not\"}},\"setPause(bool)\":{\"params\":{\"_paused\":\"Whether the contract should be paused or not\"}},\"setPendingGovernor(address)\":{\"params\":{\"_pendingGovernor\":\"Address of the proposed new governor\"}},\"setV2Keeper(address)\":{\"params\":{\"_v2Keeper\":\"Address of the new v2Keeper to set\"}},\"setWorkCooldown(uint256)\":{\"params\":{\"_workCooldown\":\"Amount of seconds to wait until a strategy can be worked again\"}},\"strategies()\":{\"returns\":{\"_strategies\":\"List of added strategies\"}},\"updateRequiredAmount(address,uint256)\":{\"params\":{\"_requiredAmount\":\"New amount of gas that te strategy requires to execute\",\"_strategy\":\"Address of the strategy to modify\"}},\"updateRequiredAmounts(address[],uint256[])\":{\"params\":{\"_requiredAmounts\":\"Array of new amounts of gas that each strategy requires to execute\",\"_strategies\":\"Array of addresses of strategies to modify\"}},\"work(address)\":{\"params\":{\"_strategy\":\"Address of the strategy to be worked\"}},\"workable(address)\":{\"params\":{\"_strategy\":\"Address of the strategy to query\"},\"returns\":{\"_isWorkable\":\"Whether the queried strategy is workable or not\"}}},\"version\":1},\"userdoc\":{\"errors\":{\"KeeperNotValid()\":[{\"notice\":\"Throws when a keeper fails the validation\"}],\"NoChangeInPause()\":[{\"notice\":\"Throws when governor tries to switch pause to the same state as before\"}],\"OnlyEOA()\":[{\"notice\":\"Throws when keeper is not tx.origin\"}],\"OnlyGovernor()\":[{\"notice\":\"Throws if a non-governor user tries to call a OnlyGovernor function\"}],\"OnlyGovernorOrMechanic()\":[{\"notice\":\"Throws when a OnlyGovernorOrMechanic function is called from an unknown address\"}],\"OnlyPendingGovernor()\":[{\"notice\":\"Throws if a non-pending-governor user tries to call a OnlyPendingGovernor function\"}],\"Paused()\":[{\"notice\":\"Throws when a keeper tries to work a paused contract\"}],\"StrategyAlreadyAdded()\":[{\"notice\":\"Throws if the strategy being added has already been added\"}],\"StrategyNotAdded()\":[{\"notice\":\"Throws if the strategy being summoned is not added\"}],\"StrategyNotWorkable()\":[{\"notice\":\"Throws if a keeper tries to work a non-workable strategy\"}],\"WrongLengths()\":[{\"notice\":\"Throws if a set of correlated input param arrays differ in lengths\"}],\"ZeroAddress()\":[{\"notice\":\"Throws if a variable is assigned to the zero address\"}],\"ZeroCooldown()\":[{\"notice\":\"Throws if the cooldown is being set to 0\"}]},\"events\":{\"ForceWorked(address)\":{\"notice\":\"Emitted when a strategy is force-worked by governor or mechanic\"},\"GasBonusSet(uint256)\":{\"notice\":\"Emitted when a new gas bonus amount is set\"},\"GasMetered(uint256,uint256,uint256)\":{\"notice\":\"Emitted when a metered job is worked\"},\"GasMultiplierSet(uint256)\":{\"notice\":\"Emitted when a new gas bonus multiplier is set\"},\"Keep3rHelperSet(address)\":{\"notice\":\"Emitted when a new Keep3rHelper contract is set\"},\"Keep3rRequirementsSet(address,uint256,uint256,uint256)\":{\"notice\":\"Emitted when a new set of requirements is set\"},\"Keep3rSet(address)\":{\"notice\":\"Emitted when a new Keep3r contract is set\"},\"KeeperWorked(address)\":{\"notice\":\"Emitted when a strategy is worked\"},\"MaxMultiplierSet(uint256)\":{\"notice\":\"Emitted when a new gas bonus multiplier maximum is set\"},\"OnlyEOASet(bool)\":{\"notice\":\"Emitted when onlyEOA is set\"},\"PauseSet(bool)\":{\"notice\":\"Emitted when the contract pause is switched\"},\"PendingGovernorAccepted(address)\":{\"notice\":\"Emitted when a new governor is set\"},\"PendingGovernorSet(address,address)\":{\"notice\":\"Emitted when a new pending governor is set\"},\"StrategyAdded(address,uint256)\":{\"notice\":\"Emitted when a new strategy is added\"},\"StrategyModified(address,uint256)\":{\"notice\":\"Emitted when a strategy is modified\"},\"StrategyRemoved(address)\":{\"notice\":\"Emitted when a strategy is removed\"}},\"kind\":\"user\",\"methods\":{\"acceptPendingGovernor()\":{\"notice\":\"Allows a proposed governor to accept the governance\"},\"forceWork(address)\":{\"notice\":\"Function to be called by governor or mechanics that triggers the execution of the given strategyThis function bypasses the workable checks\"},\"setGasBonus(uint256)\":{\"notice\":\"Allows governor to set a new gas bonus amount\"},\"setGasMultiplier(uint256)\":{\"notice\":\"Allows governor to set a new gas multiplier\"},\"setKeep3r(address)\":{\"notice\":\"Allows governor to set a new Keep3r contract\"},\"setKeep3rHelper(address)\":{\"notice\":\"Allows governor to set a new Keep3rHelper contract\"},\"setKeep3rRequirements(address,uint256,uint256,uint256)\":{\"notice\":\"Allows the governor to set new requirements to work the job\"},\"setMaxMultiplier(uint256)\":{\"notice\":\"Allows governor to set a new gas multiplier maximum\"},\"setMechanicsRegistry(address)\":{\"notice\":\"Allows governor to set a new MechanicsRegistry contract\"},\"setOnlyEOA(bool)\":{\"notice\":\"Allows governor to set the onlyEOA condition\"},\"setPause(bool)\":{\"notice\":\"Allows governor to pause or unpause the contract\"},\"setPendingGovernor(address)\":{\"notice\":\"Allows a governor to propose a new governor\"},\"work(address)\":{\"notice\":\"Function to be called by the keeper that triggers the execution of the given strategy\"}},\"version\":1}},\"settings\":{\"compilationTarget\":{\"solidity/contracts/TendV2Keep3rJob.sol\":\"TendV2Keep3rJob\"},\"evmVersion\":\"london\",\"libraries\":{\":__CACHE_BREAKER__\":\"0x00000000d41867734bbee4c6863d9255b2b06ac1\"},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"@openzeppelin/contracts/utils/structs/EnumerableSet.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v4.6.0) (utils/structs/EnumerableSet.sol)\\n\\npragma solidity ^0.8.0;\\n\\n/**\\n * @dev Library for managing\\n * https://en.wikipedia.org/wiki/Set_(abstract_data_type)[sets] of primitive\\n * types.\\n *\\n * Sets have the following properties:\\n *\\n * - Elements are added, removed, and checked for existence in constant time\\n * (O(1)).\\n * - Elements are enumerated in O(n). No guarantees are made on the ordering.\\n *\\n * ```\\n * contract Example {\\n *     // Add the library methods\\n *     using EnumerableSet for EnumerableSet.AddressSet;\\n *\\n *     // Declare a set state variable\\n *     EnumerableSet.AddressSet private mySet;\\n * }\\n * ```\\n *\\n * As of v3.3.0, sets of type `bytes32` (`Bytes32Set`), `address` (`AddressSet`)\\n * and `uint256` (`UintSet`) are supported.\\n */\\nlibrary EnumerableSet {\\n    // To implement this library for multiple types with as little code\\n    // repetition as possible, we write it in terms of a generic Set type with\\n    // bytes32 values.\\n    // The Set implementation uses private functions, and user-facing\\n    // implementations (such as AddressSet) are just wrappers around the\\n    // underlying Set.\\n    // This means that we can only create new EnumerableSets for types that fit\\n    // in bytes32.\\n\\n    struct Set {\\n        // Storage of set values\\n        bytes32[] _values;\\n        // Position of the value in the `values` array, plus 1 because index 0\\n        // means a value is not in the set.\\n        mapping(bytes32 => uint256) _indexes;\\n    }\\n\\n    /**\\n     * @dev Add a value to a set. O(1).\\n     *\\n     * Returns true if the value was added to the set, that is if it was not\\n     * already present.\\n     */\\n    function _add(Set storage set, bytes32 value) private returns (bool) {\\n        if (!_contains(set, value)) {\\n            set._values.push(value);\\n            // The value is stored at length-1, but we add 1 to all indexes\\n            // and use 0 as a sentinel value\\n            set._indexes[value] = set._values.length;\\n            return true;\\n        } else {\\n            return false;\\n        }\\n    }\\n\\n    /**\\n     * @dev Removes a value from a set. O(1).\\n     *\\n     * Returns true if the value was removed from the set, that is if it was\\n     * present.\\n     */\\n    function _remove(Set storage set, bytes32 value) private returns (bool) {\\n        // We read and store the value's index to prevent multiple reads from the same storage slot\\n        uint256 valueIndex = set._indexes[value];\\n\\n        if (valueIndex != 0) {\\n            // Equivalent to contains(set, value)\\n            // To delete an element from the _values array in O(1), we swap the element to delete with the last one in\\n            // the array, and then remove the last element (sometimes called as 'swap and pop').\\n            // This modifies the order of the array, as noted in {at}.\\n\\n            uint256 toDeleteIndex = valueIndex - 1;\\n            uint256 lastIndex = set._values.length - 1;\\n\\n            if (lastIndex != toDeleteIndex) {\\n                bytes32 lastValue = set._values[lastIndex];\\n\\n                // Move the last value to the index where the value to delete is\\n                set._values[toDeleteIndex] = lastValue;\\n                // Update the index for the moved value\\n                set._indexes[lastValue] = valueIndex; // Replace lastValue's index to valueIndex\\n            }\\n\\n            // Delete the slot where the moved value was stored\\n            set._values.pop();\\n\\n            // Delete the index for the deleted slot\\n            delete set._indexes[value];\\n\\n            return true;\\n        } else {\\n            return false;\\n        }\\n    }\\n\\n    /**\\n     * @dev Returns true if the value is in the set. O(1).\\n     */\\n    function _contains(Set storage set, bytes32 value) private view returns (bool) {\\n        return set._indexes[value] != 0;\\n    }\\n\\n    /**\\n     * @dev Returns the number of values on the set. O(1).\\n     */\\n    function _length(Set storage set) private view returns (uint256) {\\n        return set._values.length;\\n    }\\n\\n    /**\\n     * @dev Returns the value stored at position `index` in the set. O(1).\\n     *\\n     * Note that there are no guarantees on the ordering of values inside the\\n     * array, and it may change when more values are added or removed.\\n     *\\n     * Requirements:\\n     *\\n     * - `index` must be strictly less than {length}.\\n     */\\n    function _at(Set storage set, uint256 index) private view returns (bytes32) {\\n        return set._values[index];\\n    }\\n\\n    /**\\n     * @dev Return the entire set in an array\\n     *\\n     * WARNING: This operation will copy the entire storage to memory, which can be quite expensive. This is designed\\n     * to mostly be used by view accessors that are queried without any gas fees. Developers should keep in mind that\\n     * this function has an unbounded cost, and using it as part of a state-changing function may render the function\\n     * uncallable if the set grows to a point where copying to memory consumes too much gas to fit in a block.\\n     */\\n    function _values(Set storage set) private view returns (bytes32[] memory) {\\n        return set._values;\\n    }\\n\\n    // Bytes32Set\\n\\n    struct Bytes32Set {\\n        Set _inner;\\n    }\\n\\n    /**\\n     * @dev Add a value to a set. O(1).\\n     *\\n     * Returns true if the value was added to the set, that is if it was not\\n     * already present.\\n     */\\n    function add(Bytes32Set storage set, bytes32 value) internal returns (bool) {\\n        return _add(set._inner, value);\\n    }\\n\\n    /**\\n     * @dev Removes a value from a set. O(1).\\n     *\\n     * Returns true if the value was removed from the set, that is if it was\\n     * present.\\n     */\\n    function remove(Bytes32Set storage set, bytes32 value) internal returns (bool) {\\n        return _remove(set._inner, value);\\n    }\\n\\n    /**\\n     * @dev Returns true if the value is in the set. O(1).\\n     */\\n    function contains(Bytes32Set storage set, bytes32 value) internal view returns (bool) {\\n        return _contains(set._inner, value);\\n    }\\n\\n    /**\\n     * @dev Returns the number of values in the set. O(1).\\n     */\\n    function length(Bytes32Set storage set) internal view returns (uint256) {\\n        return _length(set._inner);\\n    }\\n\\n    /**\\n     * @dev Returns the value stored at position `index` in the set. O(1).\\n     *\\n     * Note that there are no guarantees on the ordering of values inside the\\n     * array, and it may change when more values are added or removed.\\n     *\\n     * Requirements:\\n     *\\n     * - `index` must be strictly less than {length}.\\n     */\\n    function at(Bytes32Set storage set, uint256 index) internal view returns (bytes32) {\\n        return _at(set._inner, index);\\n    }\\n\\n    /**\\n     * @dev Return the entire set in an array\\n     *\\n     * WARNING: This operation will copy the entire storage to memory, which can be quite expensive. This is designed\\n     * to mostly be used by view accessors that are queried without any gas fees. Developers should keep in mind that\\n     * this function has an unbounded cost, and using it as part of a state-changing function may render the function\\n     * uncallable if the set grows to a point where copying to memory consumes too much gas to fit in a block.\\n     */\\n    function values(Bytes32Set storage set) internal view returns (bytes32[] memory) {\\n        return _values(set._inner);\\n    }\\n\\n    // AddressSet\\n\\n    struct AddressSet {\\n        Set _inner;\\n    }\\n\\n    /**\\n     * @dev Add a value to a set. O(1).\\n     *\\n     * Returns true if the value was added to the set, that is if it was not\\n     * already present.\\n     */\\n    function add(AddressSet storage set, address value) internal returns (bool) {\\n        return _add(set._inner, bytes32(uint256(uint160(value))));\\n    }\\n\\n    /**\\n     * @dev Removes a value from a set. O(1).\\n     *\\n     * Returns true if the value was removed from the set, that is if it was\\n     * present.\\n     */\\n    function remove(AddressSet storage set, address value) internal returns (bool) {\\n        return _remove(set._inner, bytes32(uint256(uint160(value))));\\n    }\\n\\n    /**\\n     * @dev Returns true if the value is in the set. O(1).\\n     */\\n    function contains(AddressSet storage set, address value) internal view returns (bool) {\\n        return _contains(set._inner, bytes32(uint256(uint160(value))));\\n    }\\n\\n    /**\\n     * @dev Returns the number of values in the set. O(1).\\n     */\\n    function length(AddressSet storage set) internal view returns (uint256) {\\n        return _length(set._inner);\\n    }\\n\\n    /**\\n     * @dev Returns the value stored at position `index` in the set. O(1).\\n     *\\n     * Note that there are no guarantees on the ordering of values inside the\\n     * array, and it may change when more values are added or removed.\\n     *\\n     * Requirements:\\n     *\\n     * - `index` must be strictly less than {length}.\\n     */\\n    function at(AddressSet storage set, uint256 index) internal view returns (address) {\\n        return address(uint160(uint256(_at(set._inner, index))));\\n    }\\n\\n    /**\\n     * @dev Return the entire set in an array\\n     *\\n     * WARNING: This operation will copy the entire storage to memory, which can be quite expensive. This is designed\\n     * to mostly be used by view accessors that are queried without any gas fees. Developers should keep in mind that\\n     * this function has an unbounded cost, and using it as part of a state-changing function may render the function\\n     * uncallable if the set grows to a point where copying to memory consumes too much gas to fit in a block.\\n     */\\n    function values(AddressSet storage set) internal view returns (address[] memory) {\\n        bytes32[] memory store = _values(set._inner);\\n        address[] memory result;\\n\\n        assembly {\\n            result := store\\n        }\\n\\n        return result;\\n    }\\n\\n    // UintSet\\n\\n    struct UintSet {\\n        Set _inner;\\n    }\\n\\n    /**\\n     * @dev Add a value to a set. O(1).\\n     *\\n     * Returns true if the value was added to the set, that is if it was not\\n     * already present.\\n     */\\n    function add(UintSet storage set, uint256 value) internal returns (bool) {\\n        return _add(set._inner, bytes32(value));\\n    }\\n\\n    /**\\n     * @dev Removes a value from a set. O(1).\\n     *\\n     * Returns true if the value was removed from the set, that is if it was\\n     * present.\\n     */\\n    function remove(UintSet storage set, uint256 value) internal returns (bool) {\\n        return _remove(set._inner, bytes32(value));\\n    }\\n\\n    /**\\n     * @dev Returns true if the value is in the set. O(1).\\n     */\\n    function contains(UintSet storage set, uint256 value) internal view returns (bool) {\\n        return _contains(set._inner, bytes32(value));\\n    }\\n\\n    /**\\n     * @dev Returns the number of values on the set. O(1).\\n     */\\n    function length(UintSet storage set) internal view returns (uint256) {\\n        return _length(set._inner);\\n    }\\n\\n    /**\\n     * @dev Returns the value stored at position `index` in the set. O(1).\\n     *\\n     * Note that there are no guarantees on the ordering of values inside the\\n     * array, and it may change when more values are added or removed.\\n     *\\n     * Requirements:\\n     *\\n     * - `index` must be strictly less than {length}.\\n     */\\n    function at(UintSet storage set, uint256 index) internal view returns (uint256) {\\n        return uint256(_at(set._inner, index));\\n    }\\n\\n    /**\\n     * @dev Return the entire set in an array\\n     *\\n     * WARNING: This operation will copy the entire storage to memory, which can be quite expensive. This is designed\\n     * to mostly be used by view accessors that are queried without any gas fees. Developers should keep in mind that\\n     * this function has an unbounded cost, and using it as part of a state-changing function may render the function\\n     * uncallable if the set grows to a point where copying to memory consumes too much gas to fit in a block.\\n     */\\n    function values(UintSet storage set) internal view returns (uint256[] memory) {\\n        bytes32[] memory store = _values(set._inner);\\n        uint256[] memory result;\\n\\n        assembly {\\n            result := store\\n        }\\n\\n        return result;\\n    }\\n}\\n\",\"keccak256\":\"0xacac2065b3ed1facff1163435890d4a6bcdc474e857e8e2c91ae5fb50418f723\",\"license\":\"MIT\"},\"@yearn-mechanics/contract-utils/solidity/contracts/utils/Machinery.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity >=0.8.4 <0.9.0;\\n\\nimport '@openzeppelin/contracts/utils/structs/EnumerableSet.sol';\\nimport '../../interfaces/utils/IMachinery.sol';\\nimport '../../interfaces/mechanics/IMechanicsRegistry.sol';\\n\\ncontract Machinery is IMachinery {\\n  using EnumerableSet for EnumerableSet.AddressSet;\\n\\n  IMechanicsRegistry internal _mechanicsRegistry;\\n\\n  constructor(address __mechanicsRegistry) {\\n    _setMechanicsRegistry(__mechanicsRegistry);\\n  }\\n\\n  modifier onlyMechanic() {\\n    require(_mechanicsRegistry.isMechanic(msg.sender), 'Machinery: not mechanic');\\n    _;\\n  }\\n\\n  function setMechanicsRegistry(address __mechanicsRegistry) external virtual override {\\n    _setMechanicsRegistry(__mechanicsRegistry);\\n  }\\n\\n  function _setMechanicsRegistry(address __mechanicsRegistry) internal {\\n    _mechanicsRegistry = IMechanicsRegistry(__mechanicsRegistry);\\n  }\\n\\n  // View helpers\\n  function mechanicsRegistry() external view override returns (address _mechanicRegistry) {\\n    return address(_mechanicsRegistry);\\n  }\\n\\n  function isMechanic(address _mechanic) public view override returns (bool _isMechanic) {\\n    return _mechanicsRegistry.isMechanic(_mechanic);\\n  }\\n}\\n\",\"keccak256\":\"0x49791ab0a35781a64fbeb1fe15608d3ba149e73f66fdeeab9119855e188d2cc0\",\"license\":\"MIT\"},\"@yearn-mechanics/contract-utils/solidity/interfaces/mechanics/IMechanicsRegistry.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity >=0.8.4 <0.9.0;\\n\\ninterface IMechanicsRegistry {\\n  event MechanicAdded(address _mechanic);\\n  event MechanicRemoved(address _mechanic);\\n\\n  function addMechanic(address _mechanic) external;\\n\\n  function removeMechanic(address _mechanic) external;\\n\\n  function mechanics() external view returns (address[] memory _mechanicsList);\\n\\n  function isMechanic(address mechanic) external view returns (bool _isMechanic);\\n}\\n\",\"keccak256\":\"0xea99a72ea91a0948f7aa3cee28a68848da56f9d3027aaa40ae37eb5e3046e0fd\",\"license\":\"MIT\"},\"@yearn-mechanics/contract-utils/solidity/interfaces/utils/IMachinery.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity >=0.8.4 <0.9.0;\\n\\ninterface IMachinery {\\n  // View helpers\\n  function mechanicsRegistry() external view returns (address _mechanicsRegistry);\\n\\n  function isMechanic(address mechanic) external view returns (bool _isMechanic);\\n\\n  // Setters\\n  function setMechanicsRegistry(address _mechanicsRegistry) external;\\n}\\n\",\"keccak256\":\"0xdf1def1edf0114646cbb16bd56448a1317fc1f4616b121ab5d69d92b725a08ca\",\"license\":\"MIT\"},\"solidity/contracts/TendV2Keep3rJob.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\n/*\\n\\nCoded for Yearn Finance with \\u2665 by\\n\\n\\u2588\\u2588\\u2588\\u2588\\u2588\\u2588\\u2557\\u2591\\u2588\\u2588\\u2588\\u2588\\u2588\\u2588\\u2588\\u2557\\u2588\\u2588\\u2588\\u2588\\u2588\\u2588\\u2588\\u2557\\u2588\\u2588\\u2557\\u2003\\u2003\\u2591\\u2588\\u2588\\u2557\\u2591\\u2591\\u2591\\u2591\\u2591\\u2591\\u2591\\u2588\\u2588\\u2557\\u2591\\u2588\\u2588\\u2588\\u2588\\u2588\\u2557\\u2591\\u2588\\u2588\\u2588\\u2557\\u2591\\u2591\\u2588\\u2588\\u2557\\u2588\\u2588\\u2588\\u2588\\u2588\\u2588\\u2557\\u2591\\u2588\\u2588\\u2588\\u2588\\u2588\\u2588\\u2588\\u2557\\u2588\\u2588\\u2588\\u2588\\u2588\\u2588\\u2557\\u2591\\u2588\\u2588\\u2557\\u2591\\u2591\\u2591\\u2591\\u2591\\u2591\\u2588\\u2588\\u2588\\u2588\\u2588\\u2557\\u2591\\u2588\\u2588\\u2588\\u2557\\u2591\\u2591\\u2588\\u2588\\u2557\\u2588\\u2588\\u2588\\u2588\\u2588\\u2588\\u2557\\u2591\\n\\u2588\\u2588\\u2554\\u2550\\u2550\\u2588\\u2588\\u2557\\u2588\\u2588\\u2554\\u2550\\u2550\\u2550\\u2550\\u255d\\u2588\\u2588\\u2554\\u2550\\u2550\\u2550\\u2550\\u255d\\u2588\\u2588\\u2551\\u2003\\u2003\\u2591\\u2588\\u2588\\u2551\\u2591\\u2591\\u2588\\u2588\\u2557\\u2591\\u2591\\u2588\\u2588\\u2551\\u2588\\u2588\\u2554\\u2550\\u2550\\u2588\\u2588\\u2557\\u2588\\u2588\\u2588\\u2588\\u2557\\u2591\\u2588\\u2588\\u2551\\u2588\\u2588\\u2554\\u2550\\u2550\\u2588\\u2588\\u2557\\u2588\\u2588\\u2554\\u2550\\u2550\\u2550\\u2550\\u255d\\u2588\\u2588\\u2554\\u2550\\u2550\\u2588\\u2588\\u2557\\u2588\\u2588\\u2551\\u2591\\u2591\\u2591\\u2591\\u2591\\u2588\\u2588\\u2554\\u2550\\u2550\\u2588\\u2588\\u2557\\u2588\\u2588\\u2588\\u2588\\u2557\\u2591\\u2588\\u2588\\u2551\\u2588\\u2588\\u2554\\u2550\\u2550\\u2588\\u2588\\u2557\\n\\u2588\\u2588\\u2551\\u2591\\u2591\\u2588\\u2588\\u2551\\u2588\\u2588\\u2588\\u2588\\u2588\\u2557\\u2591\\u2591\\u2588\\u2588\\u2588\\u2588\\u2588\\u2557\\u2591\\u2591\\u2588\\u2588\\u2551\\u2003\\u2003\\u2591\\u255a\\u2588\\u2588\\u2557\\u2588\\u2588\\u2588\\u2588\\u2557\\u2588\\u2588\\u2554\\u255d\\u2588\\u2588\\u2551\\u2591\\u2591\\u2588\\u2588\\u2551\\u2588\\u2588\\u2554\\u2588\\u2588\\u2557\\u2588\\u2588\\u2551\\u2588\\u2588\\u2551\\u2591\\u2591\\u2588\\u2588\\u2551\\u2588\\u2588\\u2588\\u2588\\u2588\\u2557\\u2591\\u2591\\u2588\\u2588\\u2588\\u2588\\u2588\\u2588\\u2554\\u255d\\u2588\\u2588\\u2551\\u2591\\u2591\\u2591\\u2591\\u2591\\u2588\\u2588\\u2588\\u2588\\u2588\\u2588\\u2588\\u2551\\u2588\\u2588\\u2554\\u2588\\u2588\\u2557\\u2588\\u2588\\u2551\\u2588\\u2588\\u2551\\u2591\\u2591\\u2588\\u2588\\u2551\\n\\u2588\\u2588\\u2551\\u2591\\u2591\\u2588\\u2588\\u2551\\u2588\\u2588\\u2554\\u2550\\u2550\\u255d\\u2591\\u2591\\u2588\\u2588\\u2554\\u2550\\u2550\\u255d\\u2591\\u2591\\u2588\\u2588\\u2551\\u2003\\u2003\\u2591\\u2591\\u2588\\u2588\\u2588\\u2588\\u2554\\u2550\\u2588\\u2588\\u2588\\u2588\\u2551\\u2591\\u2588\\u2588\\u2551\\u2591\\u2591\\u2588\\u2588\\u2551\\u2588\\u2588\\u2551\\u255a\\u2588\\u2588\\u2588\\u2588\\u2551\\u2588\\u2588\\u2551\\u2591\\u2591\\u2588\\u2588\\u2551\\u2588\\u2588\\u2554\\u2550\\u2550\\u255d\\u2591\\u2591\\u2588\\u2588\\u2554\\u2550\\u2550\\u2588\\u2588\\u2557\\u2588\\u2588\\u2551\\u2591\\u2591\\u2591\\u2591\\u2591\\u2588\\u2588\\u2554\\u2550\\u2550\\u2588\\u2588\\u2551\\u2588\\u2588\\u2551\\u255a\\u2588\\u2588\\u2588\\u2588\\u2551\\u2588\\u2588\\u2551\\u2591\\u2591\\u2588\\u2588\\u2551\\n\\u2588\\u2588\\u2588\\u2588\\u2588\\u2588\\u2554\\u255d\\u2588\\u2588\\u2588\\u2588\\u2588\\u2588\\u2588\\u2557\\u2588\\u2588\\u2551\\u2591\\u2591\\u2591\\u2591\\u2591\\u2588\\u2588\\u2551\\u2003\\u2003\\u2591\\u2591\\u255a\\u2588\\u2588\\u2554\\u255d\\u2591\\u255a\\u2588\\u2588\\u2554\\u255d\\u2591\\u255a\\u2588\\u2588\\u2588\\u2588\\u2588\\u2554\\u255d\\u2588\\u2588\\u2551\\u2591\\u255a\\u2588\\u2588\\u2588\\u2551\\u2588\\u2588\\u2588\\u2588\\u2588\\u2588\\u2554\\u255d\\u2588\\u2588\\u2588\\u2588\\u2588\\u2588\\u2588\\u2557\\u2588\\u2588\\u2551\\u2591\\u2591\\u2588\\u2588\\u2551\\u2588\\u2588\\u2588\\u2588\\u2588\\u2588\\u2588\\u2557\\u2588\\u2588\\u2551\\u2591\\u2591\\u2588\\u2588\\u2551\\u2588\\u2588\\u2551\\u2591\\u255a\\u2588\\u2588\\u2588\\u2551\\u2588\\u2588\\u2588\\u2588\\u2588\\u2588\\u2554\\u255d\\n\\u255a\\u2550\\u2550\\u2550\\u2550\\u2550\\u255d\\u2591\\u255a\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u255d\\u255a\\u2550\\u255d\\u2591\\u2591\\u2591\\u2591\\u2591\\u255a\\u2550\\u255d\\u2003\\u2003\\u2591\\u2591\\u2591\\u255a\\u2550\\u255d\\u2591\\u2591\\u2591\\u255a\\u2550\\u255d\\u2591\\u2591\\u2591\\u255a\\u2550\\u2550\\u2550\\u2550\\u255d\\u2591\\u255a\\u2550\\u255d\\u2591\\u2591\\u255a\\u2550\\u2550\\u255d\\u255a\\u2550\\u2550\\u2550\\u2550\\u2550\\u255d\\u2591\\u255a\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u255d\\u255a\\u2550\\u255d\\u2591\\u2591\\u255a\\u2550\\u255d\\u255a\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u255d\\u255a\\u2550\\u255d\\u2591\\u2591\\u255a\\u2550\\u255d\\u255a\\u2550\\u255d\\u2591\\u2591\\u255a\\u2550\\u2550\\u255d\\u255a\\u2550\\u2550\\u2550\\u2550\\u2550\\u255d\\u2591\\n\\nhttps://defi.sucks\\n\\n*/\\n\\npragma solidity >=0.8.9 <0.9.0;\\n\\nimport './V2KeeperJob.sol';\\nimport './utils/Pausable.sol';\\nimport './utils/Keep3rMeteredPublicJob.sol';\\n\\ncontract TendV2Keep3rJob is IKeep3rJob, V2KeeperJob, Pausable, Keep3rMeteredPublicJob {\\n  constructor(\\n    address _governor,\\n    address _mechanicsRegistry,\\n    address _v2Keeper,\\n    uint256 _workCooldown,\\n    address _keep3r,\\n    address _keep3rHelper,\\n    address _bond,\\n    uint256 _minBond,\\n    uint256 _earned,\\n    uint256 _age,\\n    bool _onlyEOA\\n  ) V2KeeperJob(_governor, _v2Keeper, _mechanicsRegistry, _workCooldown) {\\n    _setKeep3r(_keep3r);\\n    _setKeep3rHelper(_keep3rHelper);\\n    _setKeep3rRequirements(_bond, _minBond, _earned, _age);\\n    _setOnlyEOA(_onlyEOA);\\n  }\\n\\n  // views\\n\\n  /// @inheritdoc IV2KeeperJob\\n  function workable(address _strategy) external view returns (bool _isWorkable) {\\n    return _workable(_strategy);\\n  }\\n\\n  // methods\\n\\n  /// @inheritdoc IV2KeeperJob\\n  function work(address _strategy) external upkeepMetered notPaused {\\n    _workInternal(_strategy);\\n  }\\n\\n  /// @inheritdoc IV2KeeperJob\\n  function forceWork(address _strategy) external onlyGovernorOrMechanic {\\n    _forceWork(_strategy);\\n  }\\n\\n  // internals\\n\\n  function _workable(address _strategy) internal view override returns (bool _isWorkable) {\\n    if (!super._workable(_strategy)) return false;\\n    return IBaseStrategy(_strategy).tendTrigger(_getCallCosts(_strategy));\\n  }\\n\\n  function _work(address _strategy) internal override {\\n    v2Keeper.tend(_strategy);\\n  }\\n}\\n\",\"keccak256\":\"0x469d8714cbe227151ad295715ad2af31cffe9639da2770a45c1cd20a774bb46d\",\"license\":\"MIT\"},\"solidity/contracts/V2KeeperJob.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity >=0.8.9 <0.9.0;\\nimport '@openzeppelin/contracts/utils/structs/EnumerableSet.sol';\\n\\nimport './utils/GasBaseFee.sol';\\nimport './utils/MachineryReady.sol';\\nimport '../interfaces/IV2KeeperJob.sol';\\nimport '../interfaces/external/IV2Keeper.sol';\\nimport '../interfaces/external/IBaseStrategy.sol';\\n\\nabstract contract V2KeeperJob is IV2KeeperJob, MachineryReady, GasBaseFee {\\n  using EnumerableSet for EnumerableSet.AddressSet;\\n  /// @inheritdoc IV2KeeperJob\\n  IV2Keeper public v2Keeper;\\n\\n  EnumerableSet.AddressSet internal _availableStrategies;\\n  /// @inheritdoc IV2KeeperJob\\n  mapping(address => uint256) public requiredAmount;\\n  /// @inheritdoc IV2KeeperJob\\n  mapping(address => uint256) public lastWorkAt;\\n  /// @inheritdoc IV2KeeperJob\\n  uint256 public workCooldown;\\n\\n  constructor(\\n    address _governor,\\n    address _v2Keeper,\\n    address _mechanicsRegistry,\\n    uint256 _workCooldown\\n  ) Governable(_governor) MachineryReady(_mechanicsRegistry) {\\n    v2Keeper = IV2Keeper(_v2Keeper);\\n    if (_workCooldown > 0) _setWorkCooldown(_workCooldown);\\n  }\\n\\n  // views\\n\\n  /// @inheritdoc IV2KeeperJob\\n  function strategies() public view returns (address[] memory _strategies) {\\n    _strategies = new address[](_availableStrategies.length());\\n    for (uint256 _i; _i < _availableStrategies.length(); _i++) {\\n      _strategies[_i] = _availableStrategies.at(_i);\\n    }\\n  }\\n\\n  // setters\\n\\n  /// @inheritdoc IV2KeeperJob\\n  function setV2Keeper(address _v2Keeper) external onlyGovernor {\\n    _setV2Keeper(_v2Keeper);\\n  }\\n\\n  /// @inheritdoc IV2KeeperJob\\n  function setWorkCooldown(uint256 _workCooldown) external onlyGovernorOrMechanic {\\n    _setWorkCooldown(_workCooldown);\\n  }\\n\\n  /// @inheritdoc IV2KeeperJob\\n  function addStrategy(address _strategy, uint256 _requiredAmount) external onlyGovernorOrMechanic {\\n    _addStrategy(_strategy, _requiredAmount);\\n  }\\n\\n  /// @inheritdoc IV2KeeperJob\\n  function addStrategies(address[] calldata _strategies, uint256[] calldata _requiredAmounts) external onlyGovernorOrMechanic {\\n    if (_strategies.length != _requiredAmounts.length) revert WrongLengths();\\n    for (uint256 _i; _i < _strategies.length; _i++) {\\n      _addStrategy(_strategies[_i], _requiredAmounts[_i]);\\n    }\\n  }\\n\\n  /// @inheritdoc IV2KeeperJob\\n  function updateRequiredAmount(address _strategy, uint256 _requiredAmount) external onlyGovernorOrMechanic {\\n    _updateRequiredAmount(_strategy, _requiredAmount);\\n  }\\n\\n  /// @inheritdoc IV2KeeperJob\\n  function updateRequiredAmounts(address[] calldata _strategies, uint256[] calldata _requiredAmounts) external onlyGovernorOrMechanic {\\n    if (_strategies.length != _requiredAmounts.length) revert WrongLengths();\\n    for (uint256 _i; _i < _strategies.length; _i++) {\\n      _updateRequiredAmount(_strategies[_i], _requiredAmounts[_i]);\\n    }\\n  }\\n\\n  /// @inheritdoc IV2KeeperJob\\n  function removeStrategy(address _strategy) external onlyGovernorOrMechanic {\\n    _removeStrategy(_strategy);\\n  }\\n\\n  // internals\\n\\n  function _setV2Keeper(address _v2Keeper) internal {\\n    v2Keeper = IV2Keeper(_v2Keeper);\\n  }\\n\\n  function _setWorkCooldown(uint256 _workCooldown) internal {\\n    if (_workCooldown == 0) revert ZeroCooldown();\\n    workCooldown = _workCooldown;\\n  }\\n\\n  function _addStrategy(address _strategy, uint256 _requiredAmount) internal {\\n    if (_availableStrategies.contains(_strategy)) revert StrategyAlreadyAdded();\\n    _setRequiredAmount(_strategy, _requiredAmount);\\n    emit StrategyAdded(_strategy, _requiredAmount);\\n    _availableStrategies.add(_strategy);\\n  }\\n\\n  function _updateRequiredAmount(address _strategy, uint256 _requiredAmount) internal {\\n    if (!_availableStrategies.contains(_strategy)) revert StrategyNotAdded();\\n    _setRequiredAmount(_strategy, _requiredAmount);\\n    emit StrategyModified(_strategy, _requiredAmount);\\n  }\\n\\n  function _removeStrategy(address _strategy) internal {\\n    if (!_availableStrategies.contains(_strategy)) revert StrategyNotAdded();\\n    delete requiredAmount[_strategy];\\n    _availableStrategies.remove(_strategy);\\n    emit StrategyRemoved(_strategy);\\n  }\\n\\n  function _setRequiredAmount(address _strategy, uint256 _requiredAmount) internal {\\n    requiredAmount[_strategy] = _requiredAmount;\\n  }\\n\\n  function _workable(address _strategy) internal view virtual returns (bool) {\\n    if (!_availableStrategies.contains(_strategy)) revert StrategyNotAdded();\\n    if (workCooldown == 0 || block.timestamp > lastWorkAt[_strategy] + workCooldown) return true;\\n    return false;\\n  }\\n\\n  function _getCallCosts(address _strategy) internal view returns (uint256 _callCost) {\\n    uint256 _gasAmount = requiredAmount[_strategy];\\n    if (_gasAmount == 0) return 0;\\n    return _gasAmount * _gasPrice();\\n  }\\n\\n  function _workInternal(address _strategy) internal {\\n    if (!_workable(_strategy)) revert StrategyNotWorkable();\\n    lastWorkAt[_strategy] = block.timestamp;\\n    _work(_strategy);\\n    emit KeeperWorked(_strategy);\\n  }\\n\\n  function _forceWork(address _strategy) internal {\\n    _work(_strategy);\\n    emit ForceWorked(_strategy);\\n  }\\n\\n  /// @dev This function should be implemented on the base contract\\n  function _work(address _strategy) internal virtual {}\\n}\\n\",\"keccak256\":\"0xfd84f5313f9ce7c162f686ce05df0224da97f3238351ef28f4cdd97290fad598\",\"license\":\"MIT\"},\"solidity/contracts/utils/GasBaseFee.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity >=0.8.9 <0.9.0;\\n\\nabstract contract GasBaseFee {\\n  // internals\\n  function _gasPrice() internal view virtual returns (uint256) {\\n    return block.basefee;\\n  }\\n}\\n\",\"keccak256\":\"0xd45033f9ccdb76016847fbcedb1e7239cce4c26c91523ff2614ae2c79f1fb10b\",\"license\":\"MIT\"},\"solidity/contracts/utils/Governable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity >=0.8.9 <0.9.0;\\n\\nimport '../../interfaces/utils/IGovernable.sol';\\n\\nabstract contract Governable is IGovernable {\\n  /// @inheritdoc IGovernable\\n  address public governor;\\n  /// @inheritdoc IGovernable\\n  address public pendingGovernor;\\n\\n  constructor(address _governor) {\\n    if (_governor == address(0)) revert ZeroAddress();\\n    governor = _governor;\\n  }\\n\\n  // methods\\n\\n  /// @inheritdoc IGovernable\\n  function setPendingGovernor(address _pendingGovernor) external onlyGovernor {\\n    _setPendingGovernor(_pendingGovernor);\\n  }\\n\\n  /// @inheritdoc IGovernable\\n  function acceptPendingGovernor() external onlyPendingGovernor {\\n    _acceptPendingGovernor();\\n  }\\n\\n  // modifiers\\n\\n  modifier onlyGovernor() {\\n    if (msg.sender != governor) revert OnlyGovernor();\\n    _;\\n  }\\n\\n  modifier onlyPendingGovernor() {\\n    if (msg.sender != pendingGovernor) revert OnlyPendingGovernor();\\n    _;\\n  }\\n\\n  // internals\\n\\n  function _setPendingGovernor(address _pendingGovernor) internal {\\n    if (_pendingGovernor == address(0)) revert ZeroAddress();\\n    pendingGovernor = _pendingGovernor;\\n    emit PendingGovernorSet(governor, pendingGovernor);\\n  }\\n\\n  function _acceptPendingGovernor() internal {\\n    governor = pendingGovernor;\\n    pendingGovernor = address(0);\\n    emit PendingGovernorAccepted(governor);\\n  }\\n}\\n\",\"keccak256\":\"0x94045bada4410a21ed5f4bd633bee19657725bb4af54db261a7e465c186870e8\",\"license\":\"MIT\"},\"solidity/contracts/utils/Keep3rBondedJob.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity >=0.8.9 <0.9.0;\\n\\nimport './Keep3rJob.sol';\\nimport '../../interfaces/utils/IKeep3rBondedJob.sol';\\n\\nabstract contract Keep3rBondedJob is IKeep3rBondedJob, Keep3rJob {\\n  /// @inheritdoc IKeep3rBondedJob\\n  address public requiredBond = 0x1cEB5cB57C4D4E2b2433641b95Dd330A33185A44;\\n  /// @inheritdoc IKeep3rBondedJob\\n  uint256 public requiredMinBond = 50 ether;\\n  /// @inheritdoc IKeep3rBondedJob\\n  uint256 public requiredEarnings;\\n  /// @inheritdoc IKeep3rBondedJob\\n  uint256 public requiredAge;\\n\\n  // methods\\n\\n  /// @inheritdoc IKeep3rBondedJob\\n  function setKeep3rRequirements(\\n    address _bond,\\n    uint256 _minBond,\\n    uint256 _earned,\\n    uint256 _age\\n  ) public onlyGovernor {\\n    _setKeep3rRequirements(_bond, _minBond, _earned, _age);\\n  }\\n\\n  // internals\\n\\n  function _setKeep3rRequirements(\\n    address _bond,\\n    uint256 _minBond,\\n    uint256 _earned,\\n    uint256 _age\\n  ) internal {\\n    requiredBond = _bond;\\n    requiredMinBond = _minBond;\\n    requiredEarnings = _earned;\\n    requiredAge = _age;\\n    emit Keep3rRequirementsSet(_bond, _minBond, _earned, _age);\\n  }\\n\\n  function _isValidKeeper(address _keeper) internal virtual override {\\n    if (!IKeep3rV2(keep3r).isBondedKeeper(_keeper, requiredBond, requiredMinBond, requiredEarnings, requiredAge)) revert KeeperNotValid();\\n  }\\n}\\n\",\"keccak256\":\"0x09807e31068ba3006a823d57b7ce2c34d712a91827ac3b463d5351f0b4e5ca42\",\"license\":\"MIT\"},\"solidity/contracts/utils/Keep3rJob.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity >=0.8.9 <0.9.0;\\n\\nimport './Governable.sol';\\nimport '../../interfaces/utils/IKeep3rJob.sol';\\nimport '../../interfaces/external/IKeep3rV2.sol';\\n\\nabstract contract Keep3rJob is IKeep3rJob, Governable {\\n  /// @inheritdoc IKeep3rJob\\n  address public keep3r = 0xeb02addCfD8B773A5FFA6B9d1FE99c566f8c44CC;\\n\\n  // methods\\n\\n  /// @inheritdoc IKeep3rJob\\n  function setKeep3r(address _keep3r) public onlyGovernor {\\n    _setKeep3r(_keep3r);\\n  }\\n\\n  // modifiers\\n\\n  modifier upkeep() {\\n    _isValidKeeper(msg.sender);\\n    _;\\n    IKeep3rV2(keep3r).worked(msg.sender);\\n  }\\n\\n  // internals\\n\\n  function _setKeep3r(address _keep3r) internal {\\n    keep3r = _keep3r;\\n    emit Keep3rSet(_keep3r);\\n  }\\n\\n  function _isValidKeeper(address _keeper) internal virtual {\\n    if (!IKeep3rV2(keep3r).isKeeper(_keeper)) revert KeeperNotValid();\\n  }\\n}\\n\",\"keccak256\":\"0x8e7f850390f703654c2b9fca34939e24013184b21900a9f1c589694e55b7fc9d\",\"license\":\"MIT\"},\"solidity/contracts/utils/Keep3rMeteredJob.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity >=0.8.9 <0.9.0;\\n\\nimport './Keep3rJob.sol';\\nimport '../../interfaces/external/IKeep3rHelper.sol';\\nimport '../../interfaces/utils/IKeep3rMeteredJob.sol';\\n\\nabstract contract Keep3rMeteredJob is IKeep3rMeteredJob, Keep3rJob {\\n  /// @inheritdoc IKeep3rMeteredJob\\n  address public keep3rHelper = 0xD36Ac9Ff5562abb541F51345f340FB650547a661;\\n  /// @inheritdoc IKeep3rMeteredJob\\n  uint256 public gasBonus = 86_000;\\n  /// @inheritdoc IKeep3rMeteredJob\\n  uint256 public gasMultiplier = 12_000;\\n  /// @inheritdoc IKeep3rMeteredJob\\n  uint32 public constant BASE = 10_000;\\n  /// @inheritdoc IKeep3rMeteredJob\\n  uint256 public maxMultiplier = 15_000;\\n\\n  // setters\\n\\n  /// @inheritdoc IKeep3rMeteredJob\\n  function setKeep3rHelper(address _keep3rHelper) public onlyGovernor {\\n    _setKeep3rHelper(_keep3rHelper);\\n  }\\n\\n  /// @inheritdoc IKeep3rMeteredJob\\n  function setGasBonus(uint256 _gasBonus) external onlyGovernor {\\n    _setGasBonus(_gasBonus);\\n  }\\n\\n  /// @inheritdoc IKeep3rMeteredJob\\n  function setMaxMultiplier(uint256 _maxMultiplier) external onlyGovernor {\\n    _setMaxMultiplier(_maxMultiplier);\\n  }\\n\\n  /// @inheritdoc IKeep3rMeteredJob\\n  function setGasMultiplier(uint256 _gasMultiplier) external onlyGovernor {\\n    _setGasMultiplier(_gasMultiplier);\\n  }\\n\\n  // modifiers\\n\\n  modifier upkeepMetered() {\\n    uint256 _initialGas = gasleft();\\n    _isValidKeeper(msg.sender);\\n    _;\\n    uint256 _gasAfterWork = gasleft();\\n    uint256 _reward = (_calculateGas(_initialGas - _gasAfterWork + gasBonus) * gasMultiplier) / BASE;\\n    uint256 _payment = IKeep3rHelper(keep3rHelper).quote(_reward);\\n    IKeep3rV2(keep3r).bondedPayment(msg.sender, _payment);\\n    emit GasMetered(_initialGas, _gasAfterWork, gasBonus);\\n  }\\n\\n  // internals\\n\\n  function _setKeep3rHelper(address _keep3rHelper) internal {\\n    keep3rHelper = _keep3rHelper;\\n    emit Keep3rHelperSet(_keep3rHelper);\\n  }\\n\\n  function _setGasBonus(uint256 _gasBonus) internal {\\n    gasBonus = _gasBonus;\\n    emit GasBonusSet(gasBonus);\\n  }\\n\\n  function _setMaxMultiplier(uint256 _maxMultiplier) internal {\\n    maxMultiplier = _maxMultiplier;\\n    emit MaxMultiplierSet(maxMultiplier);\\n  }\\n\\n  function _setGasMultiplier(uint256 _gasMultiplier) internal {\\n    if (_gasMultiplier > maxMultiplier) revert MaxMultiplier();\\n    gasMultiplier = _gasMultiplier;\\n    emit GasMultiplierSet(gasMultiplier);\\n  }\\n\\n  function _calculateGas(uint256 _gasUsed) internal view returns (uint256 _resultingGas) {\\n    _resultingGas = block.basefee * _gasUsed;\\n  }\\n\\n  function _calculateCredits(uint256 _gasUsed) internal view returns (uint256 _credits) {\\n    return IKeep3rHelper(keep3rHelper).getRewardAmount(_calculateGas(_gasUsed));\\n  }\\n}\\n\",\"keccak256\":\"0x916bfbef52cebfd4e1c16f6f1efe41345dc7dc08adc553d6f1380415eeab162e\",\"license\":\"MIT\"},\"solidity/contracts/utils/Keep3rMeteredPublicJob.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity >=0.8.9 <0.9.0;\\n\\nimport './Keep3rMeteredJob.sol';\\nimport './Keep3rBondedJob.sol';\\nimport './OnlyEOA.sol';\\n\\nabstract contract Keep3rMeteredPublicJob is Keep3rMeteredJob, Keep3rBondedJob, OnlyEOA {\\n  // internals\\n  function _isValidKeeper(address _keeper) internal override(Keep3rBondedJob, Keep3rJob) {\\n    if (onlyEOA) _validateEOA(_keeper);\\n    super._isValidKeeper(_keeper);\\n  }\\n}\\n\",\"keccak256\":\"0x6e0087f3c4adf6a5db5621d6ffa15f53bd5991d48d66be0df818695a60213cd3\",\"license\":\"MIT\"},\"solidity/contracts/utils/MachineryReady.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity >=0.8.9 <0.9.0;\\n\\nimport '@yearn-mechanics/contract-utils/solidity/contracts/utils/Machinery.sol';\\nimport './Governable.sol';\\n\\nabstract contract MachineryReady is Machinery, Governable {\\n  // errors\\n\\n  /// @notice Throws when a OnlyGovernorOrMechanic function is called from an unknown address\\n  error OnlyGovernorOrMechanic();\\n\\n  constructor(address _mechanicsRegistry) Machinery(_mechanicsRegistry) {}\\n\\n  // methods\\n\\n  /// @notice Allows governor to set a new MechanicsRegistry contract\\n  /// @param _mechanicsRegistry Address of the new MechanicsRegistry contract\\n  function setMechanicsRegistry(address _mechanicsRegistry) external override onlyGovernor {\\n    _setMechanicsRegistry(_mechanicsRegistry);\\n  }\\n\\n  // modifiers\\n\\n  modifier onlyGovernorOrMechanic() {\\n    _validateGovernorOrMechanic(msg.sender);\\n    _;\\n  }\\n\\n  // internals\\n\\n  function _validateGovernorOrMechanic(address _user) internal view {\\n    if (_user != governor && !isMechanic(_user)) revert OnlyGovernorOrMechanic();\\n  }\\n}\\n\",\"keccak256\":\"0xab58a9ae169d302f8a1144c413a224c5a6e3fa72d5f4e8164eb24024a9ef4282\",\"license\":\"MIT\"},\"solidity/contracts/utils/OnlyEOA.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity >=0.8.9 <0.9.0;\\n\\nimport '../../interfaces/utils/IOnlyEOA.sol';\\nimport './Governable.sol';\\n\\nabstract contract OnlyEOA is IOnlyEOA, Governable {\\n  /// @inheritdoc IOnlyEOA\\n  bool public onlyEOA;\\n\\n  // methods\\n\\n  /// @inheritdoc IOnlyEOA\\n  function setOnlyEOA(bool _onlyEOA) external onlyGovernor {\\n    _setOnlyEOA(_onlyEOA);\\n  }\\n\\n  // internals\\n\\n  function _setOnlyEOA(bool _onlyEOA) internal {\\n    onlyEOA = _onlyEOA;\\n    emit OnlyEOASet(_onlyEOA);\\n  }\\n\\n  function _validateEOA(address _caller) internal view {\\n    // solhint-disable-next-line avoid-tx-origin\\n    if (_caller != tx.origin) revert OnlyEOA();\\n  }\\n}\\n\",\"keccak256\":\"0x687ee45ef50362797088f7fb431df872322439eb9f046abc0a82641b867050a4\",\"license\":\"MIT\"},\"solidity/contracts/utils/Pausable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity >=0.8.9 <0.9.0;\\n\\nimport './Governable.sol';\\nimport '../../interfaces/utils/IPausable.sol';\\n\\nabstract contract Pausable is IPausable, Governable {\\n  /// @inheritdoc IPausable\\n  bool public paused;\\n\\n  // setters\\n\\n  /// @inheritdoc IPausable\\n  function setPause(bool _paused) external onlyGovernor {\\n    _setPause(_paused);\\n  }\\n\\n  // modifiers\\n\\n  modifier notPaused() {\\n    if (paused) revert Paused();\\n    _;\\n  }\\n\\n  // internals\\n\\n  function _setPause(bool _paused) internal {\\n    if (paused == _paused) revert NoChangeInPause();\\n    paused = _paused;\\n    emit PauseSet(_paused);\\n  }\\n}\\n\",\"keccak256\":\"0xc1e66374b30db4b7e192c7038b05c8549c0d22605555839afd6b4e0a41c3971d\",\"license\":\"MIT\"},\"solidity/interfaces/IV2KeeperJob.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity >=0.8.4 <0.9.0;\\nimport './external/IV2Keeper.sol';\\n\\ninterface IV2KeeperJob {\\n  // errors\\n\\n  /// @notice Throws if the strategy being added has already been added\\n  error StrategyAlreadyAdded();\\n  /// @notice Throws if the strategy being summoned is not added\\n  error StrategyNotAdded();\\n  /// @notice Throws if a keeper tries to work a non-workable strategy\\n  error StrategyNotWorkable();\\n  /// @notice Throws if the cooldown is being set to 0\\n  error ZeroCooldown();\\n\\n  // events\\n\\n  /// @notice Emitted when a new strategy is added\\n  /// @param _strategy Address of the strategy being added\\n  /// @param _requiredAmount Estimated amount of gas required to trigger the strategy\\n  event StrategyAdded(address _strategy, uint256 _requiredAmount);\\n\\n  /// @notice Emitted when a strategy is modified\\n  /// @param _strategy Address of the strategy being modified\\n  /// @param _requiredAmount New estimated amount of gas required to trigger the strategy\\n  event StrategyModified(address _strategy, uint256 _requiredAmount);\\n\\n  /// @notice Emitted when a strategy is removed\\n  /// @param _strategy Address of the strategy being removed\\n  event StrategyRemoved(address _strategy);\\n\\n  /// @notice Emitted when a strategy is worked\\n  /// @param _strategy Address of the strategy being worked\\n  event KeeperWorked(address _strategy);\\n\\n  /// @notice Emitted when a strategy is force-worked by governor or mechanic\\n  /// @param _strategy Address of the strategy being force-worked\\n  event ForceWorked(address _strategy);\\n\\n  // views\\n\\n  /// @return _v2Keeper Address of v2Keeper\\n  function v2Keeper() external view returns (IV2Keeper _v2Keeper);\\n\\n  /// @return _strategies List of added strategies\\n  function strategies() external view returns (address[] memory _strategies);\\n\\n  /// @return _workCooldown Amount of seconds to wait until a strategy can be worked again\\n  function workCooldown() external view returns (uint256 _workCooldown);\\n\\n  /// @param _strategy Address of the strategy to query\\n  /// @return _isWorkable Whether the queried strategy is workable or not\\n  function workable(address _strategy) external view returns (bool _isWorkable);\\n\\n  /// @param _strategy Address of the strategy to query\\n  /// @return _lastWorkAt Timestamp of the last time the strategy was worked\\n  function lastWorkAt(address _strategy) external view returns (uint256 _lastWorkAt);\\n\\n  /// @param _strategy Address of the strategy to query\\n  /// @return _requiredAmount Estimated amount of gas that the strategy requires to be executed\\n  function requiredAmount(address _strategy) external view returns (uint256 _requiredAmount);\\n\\n  // methods\\n\\n  /// @param _v2Keeper Address of the new v2Keeper to set\\n  function setV2Keeper(address _v2Keeper) external;\\n\\n  /// @param _workCooldown Amount of seconds to wait until a strategy can be worked again\\n  function setWorkCooldown(uint256 _workCooldown) external;\\n\\n  /// @param _strategy Address of the strategy to add\\n  /// @param _requiredAmount Amount of gas that the strategy requires to execute\\n  function addStrategy(address _strategy, uint256 _requiredAmount) external;\\n\\n  /// @param _strategies Array of addresses of strategies to add\\n  /// @param _requiredAmount Array of amount of gas that each strategy requires to execute\\n  function addStrategies(address[] calldata _strategies, uint256[] calldata _requiredAmount) external;\\n\\n  /// @param _strategy Address of the strategy to modify\\n  /// @param _requiredAmount New amount of gas that te strategy requires to execute\\n  function updateRequiredAmount(address _strategy, uint256 _requiredAmount) external;\\n\\n  /// @param _strategies Array of addresses of strategies to modify\\n  /// @param _requiredAmounts Array of new amounts of gas that each strategy requires to execute\\n  function updateRequiredAmounts(address[] calldata _strategies, uint256[] calldata _requiredAmounts) external;\\n\\n  /// @param _strategy Address of the strategy to remove\\n  function removeStrategy(address _strategy) external;\\n\\n  /// @notice Function to be called by the keeper that triggers the execution of the given strategy\\n  /// @param _strategy Address of the strategy to be worked\\n  function work(address _strategy) external;\\n\\n  /// @notice Function to be called by governor or mechanics that triggers the execution of the given strategy\\n  /// @notice This function bypasses the workable checks\\n  /// @param _strategy Address of the strategy to be worked\\n  function forceWork(address _strategy) external;\\n}\\n\",\"keccak256\":\"0x48887d20b2ba7c88ea2963ca67b6d541675789154d30a48daf856f2d80651606\",\"license\":\"MIT\"},\"solidity/interfaces/external/IBaseStrategy.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.4;\\n\\ninterface IBaseStrategy {\\n  // events\\n  event Harvested(uint256 _profit, uint256 _loss, uint256 _debtPayment, uint256 _debtOutstanding);\\n\\n  // views\\n\\n  function vault() external view returns (address _vault);\\n\\n  function strategist() external view returns (address _strategist);\\n\\n  function rewards() external view returns (address _rewards);\\n\\n  function keeper() external view returns (address _keeper);\\n\\n  function want() external view returns (address _want);\\n\\n  function name() external view returns (string memory _name);\\n\\n  function profitFactor() external view returns (uint256 _profitFactor);\\n\\n  function maxReportDelay() external view returns (uint256 _maxReportDelay);\\n\\n  function crv() external view returns (address _crv);\\n\\n  // setters\\n  function setStrategist(address _strategist) external;\\n\\n  function setKeeper(address _keeper) external;\\n\\n  function setRewards(address _rewards) external;\\n\\n  function tendTrigger(uint256 _callCost) external view returns (bool);\\n\\n  function tend() external;\\n\\n  function harvestTrigger(uint256 _callCost) external view returns (bool);\\n\\n  function harvest() external;\\n\\n  function setBorrowCollateralizationRatio(uint256 _c) external;\\n}\\n\",\"keccak256\":\"0x748c58b289aa0e139a6bbf121e4c30e25ac3525f7a1305943176f6a1c59d5e2d\",\"license\":\"MIT\"},\"solidity/interfaces/external/IKeep3rHelper.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity >=0.8.0 <0.9.0;\\n\\n/// @title Keep3rHelper contract\\n/// @notice Contains all the helper functions used throughout the different files.\\ninterface IKeep3rHelper {\\n  // Errors\\n\\n  /// @notice Throws when none of the tokens in the liquidity pair is KP3R\\n  error LiquidityPairInvalid();\\n\\n  // Variables\\n\\n  /// @notice Address of KP3R token\\n  /// @return _kp3r Address of KP3R token\\n  // solhint-disable func-name-mixedcase\\n  function KP3R() external view returns (address _kp3r);\\n\\n  /// @notice Address of KP3R-WETH pool to use as oracle\\n  /// @return _kp3rWeth Address of KP3R-WETH pool to use as oracle\\n  function KP3R_WETH_POOL() external view returns (address _kp3rWeth);\\n\\n  /// @notice The minimum multiplier used to calculate the amount of gas paid to the Keeper for the gas used to perform a job\\n  ///         For example: if the quoted gas used is 1000, then the minimum amount to be paid will be 1000 * MIN / BOOST_BASE\\n  /// @return _multiplier The MIN multiplier\\n  function MIN() external view returns (uint256 _multiplier);\\n\\n  /// @notice The maximum multiplier used to calculate the amount of gas paid to the Keeper for the gas used to perform a job\\n  ///         For example: if the quoted gas used is 1000, then the maximum amount to be paid will be 1000 * MAX / BOOST_BASE\\n  /// @return _multiplier The MAX multiplier\\n  function MAX() external view returns (uint256 _multiplier);\\n\\n  /// @notice The boost base used to calculate the boost rewards for the keeper\\n  /// @return _base The boost base number\\n  function BOOST_BASE() external view returns (uint256 _base);\\n\\n  /// @notice The targeted amount of bonded KP3Rs to max-up reward multiplier\\n  ///         For example: if the amount of KP3R the keeper has bonded is TARGETBOND or more, then the keeper will get\\n  ///                      the maximum boost possible in his rewards, if it's less, the reward boost will be proportional\\n  /// @return _target The amount of KP3R that comforms the TARGETBOND\\n  function TARGETBOND() external view returns (uint256 _target);\\n\\n  // Methods\\n  // solhint-enable func-name-mixedcase\\n\\n  /// @notice Calculates the amount of KP3R that corresponds to the ETH passed into the function\\n  /// @dev This function allows us to calculate how much KP3R we should pay to a keeper for things expressed in ETH, like gas\\n  /// @param _eth The amount of ETH\\n  /// @return _amountOut The amount of KP3R\\n  function quote(uint256 _eth) external view returns (uint256 _amountOut);\\n\\n  /// @notice Returns the amount of KP3R the keeper has bonded\\n  /// @param _keeper The address of the keeper to check\\n  /// @return _amountBonded The amount of KP3R the keeper has bonded\\n  function bonds(address _keeper) external view returns (uint256 _amountBonded);\\n\\n  /// @notice Calculates the reward (in KP3R) that corresponds to a keeper for using gas\\n  /// @param _keeper The address of the keeper to check\\n  /// @param _gasUsed The amount of gas used that will be rewarded\\n  /// @return _kp3r The amount of KP3R that should be awarded to the keeper\\n  function getRewardAmountFor(address _keeper, uint256 _gasUsed) external view returns (uint256 _kp3r);\\n\\n  /// @notice Calculates the boost in the reward given to a keeper based on the amount of KP3R that keeper has bonded\\n  /// @param _bonds The amount of KP3R tokens bonded by the keeper\\n  /// @return _rewardBoost The reward boost that corresponds to the keeper\\n  function getRewardBoostFor(uint256 _bonds) external view returns (uint256 _rewardBoost);\\n\\n  /// @notice Calculates the reward (in KP3R) that corresponds to tx.origin for using gas\\n  /// @param _gasUsed The amount of gas used that will be rewarded\\n  /// @return _amount The amount of KP3R that should be awarded to tx.origin\\n  function getRewardAmount(uint256 _gasUsed) external view returns (uint256 _amount);\\n\\n  /// @notice Given a pool address, returns the underlying tokens of the pair\\n  /// @param _pool Address of the correspondant pool\\n  /// @return _token0 Address of the first token of the pair\\n  /// @return _token1 Address of the second token of the pair\\n  function getPoolTokens(address _pool) external view returns (address _token0, address _token1);\\n\\n  /// @notice Defines the order of the tokens in the pair for twap calculations\\n  /// @param _pool Address of the correspondant pool\\n  /// @return _isKP3RToken0 Boolean indicating the order of the tokens in the pair\\n  function isKP3RToken0(address _pool) external view returns (bool _isKP3RToken0);\\n\\n  /// @notice Given an array of secondsAgo, returns UniswapV3 pool cumulatives at that moment\\n  /// @param _pool Address of the pool to observe\\n  /// @param _secondsAgo Array with time references to observe\\n  /// @return _tickCumulative1 Cummulative sum of ticks until first time reference\\n  /// @return _tickCumulative2 Cummulative sum of ticks until second time reference\\n  /// @return _success Boolean indicating if the observe call was succesfull\\n  function observe(address _pool, uint32[] memory _secondsAgo)\\n    external\\n    view\\n    returns (\\n      int56 _tickCumulative1,\\n      int56 _tickCumulative2,\\n      bool _success\\n    );\\n\\n  /// @notice Given a tick and a liquidity amount, calculates the underlying KP3R tokens\\n  /// @param _liquidityAmount Amount of liquidity to be converted\\n  /// @param _tickDifference Tick value used to calculate the quote\\n  /// @param _timeInterval Time value used to calculate the quote\\n  /// @return _kp3rAmount Amount of KP3R tokens underlying on the given liquidity\\n  function getKP3RsAtTick(\\n    uint256 _liquidityAmount,\\n    int56 _tickDifference,\\n    uint256 _timeInterval\\n  ) external pure returns (uint256 _kp3rAmount);\\n\\n  /// @notice Given a tick and a token amount, calculates the output in correspondant token\\n  /// @param _baseAmount Amount of token to be converted\\n  /// @param _tickDifference Tick value used to calculate the quote\\n  /// @param _timeInterval Time value used to calculate the quote\\n  /// @return _quoteAmount Amount of credits deserved for the baseAmount at the tick value\\n  function getQuoteAtTick(\\n    uint128 _baseAmount,\\n    int56 _tickDifference,\\n    uint256 _timeInterval\\n  ) external pure returns (uint256 _quoteAmount);\\n}\\n\",\"keccak256\":\"0xc1403ca749d220ed4798d4285a91e1f63466fa57a0d1e6e564d26aba98239333\",\"license\":\"MIT\"},\"solidity/interfaces/external/IKeep3rV2.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity >=0.8.4 <0.9.0;\\n\\ninterface IKeep3rV2 {\\n  /// @notice Stores the tick information of the different liquidity pairs\\n  struct TickCache {\\n    int56 current; // Tracks the current tick\\n    int56 difference; // Stores the difference between the current tick and the last tick\\n    uint256 period; // Stores the period at which the last observation was made\\n  }\\n\\n  // Events\\n\\n  /// @notice Emitted when the Keep3rHelper address is changed\\n  /// @param _keep3rHelper The address of Keep3rHelper's contract\\n  event Keep3rHelperChange(address _keep3rHelper);\\n\\n  /// @notice Emitted when the Keep3rV1 address is changed\\n  /// @param _keep3rV1 The address of Keep3rV1's contract\\n  event Keep3rV1Change(address _keep3rV1);\\n\\n  /// @notice Emitted when the Keep3rV1Proxy address is changed\\n  /// @param _keep3rV1Proxy The address of Keep3rV1Proxy's contract\\n  event Keep3rV1ProxyChange(address _keep3rV1Proxy);\\n\\n  /// @notice Emitted when the KP3R-WETH pool address is changed\\n  /// @param _kp3rWethPool The address of the KP3R-WETH pool\\n  event Kp3rWethPoolChange(address _kp3rWethPool);\\n\\n  /// @notice Emitted when bondTime is changed\\n  /// @param _bondTime The new bondTime\\n  event BondTimeChange(uint256 _bondTime);\\n\\n  /// @notice Emitted when _liquidityMinimum is changed\\n  /// @param _liquidityMinimum The new _liquidityMinimum\\n  event LiquidityMinimumChange(uint256 _liquidityMinimum);\\n\\n  /// @notice Emitted when _unbondTime is changed\\n  /// @param _unbondTime The new _unbondTime\\n  event UnbondTimeChange(uint256 _unbondTime);\\n\\n  /// @notice Emitted when _rewardPeriodTime is changed\\n  /// @param _rewardPeriodTime The new _rewardPeriodTime\\n  event RewardPeriodTimeChange(uint256 _rewardPeriodTime);\\n\\n  /// @notice Emitted when the inflationPeriod is changed\\n  /// @param _inflationPeriod The new inflationPeriod\\n  event InflationPeriodChange(uint256 _inflationPeriod);\\n\\n  /// @notice Emitted when the fee is changed\\n  /// @param _fee The new token credits fee\\n  event FeeChange(uint256 _fee);\\n\\n  /// @notice Emitted when a slasher is added\\n  /// @param _slasher Address of the added slasher\\n  event SlasherAdded(address _slasher);\\n\\n  /// @notice Emitted when a slasher is removed\\n  /// @param _slasher Address of the removed slasher\\n  event SlasherRemoved(address _slasher);\\n\\n  /// @notice Emitted when a disputer is added\\n  /// @param _disputer Address of the added disputer\\n  event DisputerAdded(address _disputer);\\n\\n  /// @notice Emitted when a disputer is removed\\n  /// @param _disputer Address of the removed disputer\\n  event DisputerRemoved(address _disputer);\\n\\n  /// @notice Emitted when the bonding process of a new keeper begins\\n  /// @param _keeper The caller of Keep3rKeeperFundable#bond function\\n  /// @param _bonding The asset the keeper has bonded\\n  /// @param _amount The amount the keeper has bonded\\n  event Bonding(address indexed _keeper, address indexed _bonding, uint256 _amount);\\n\\n  /// @notice Emitted when a keeper or job begins the unbonding process to withdraw the funds\\n  /// @param _keeperOrJob The keeper or job that began the unbonding process\\n  /// @param _unbonding The liquidity pair or asset being unbonded\\n  /// @param _amount The amount being unbonded\\n  event Unbonding(address indexed _keeperOrJob, address indexed _unbonding, uint256 _amount);\\n\\n  /// @notice Emitted when Keep3rKeeperFundable#activate is called\\n  /// @param _keeper The keeper that has been activated\\n  /// @param _bond The asset the keeper has bonded\\n  /// @param _amount The amount of the asset the keeper has bonded\\n  event Activation(address indexed _keeper, address indexed _bond, uint256 _amount);\\n\\n  /// @notice Emitted when Keep3rKeeperFundable#withdraw is called\\n  /// @param _keeper The caller of Keep3rKeeperFundable#withdraw function\\n  /// @param _bond The asset to withdraw from the bonding pool\\n  /// @param _amount The amount of funds withdrawn\\n  event Withdrawal(address indexed _keeper, address indexed _bond, uint256 _amount);\\n\\n  /// @notice Emitted when Keep3rKeeperDisputable#slash is called\\n  /// @param _keeper The slashed keeper\\n  /// @param _slasher The user that called Keep3rKeeperDisputable#slash\\n  /// @param _amount The amount of credits slashed from the keeper\\n  event KeeperSlash(address indexed _keeper, address indexed _slasher, uint256 _amount);\\n\\n  /// @notice Emitted when Keep3rKeeperDisputable#revoke is called\\n  /// @param _keeper The revoked keeper\\n  /// @param _slasher The user that called Keep3rKeeperDisputable#revoke\\n  event KeeperRevoke(address indexed _keeper, address indexed _slasher);\\n\\n  /// @notice Emitted when Keep3rJobFundableCredits#addTokenCreditsToJob is called\\n  /// @param _job The address of the job being credited\\n  /// @param _token The address of the token being provided\\n  /// @param _provider The user that calls the function\\n  /// @param _amount The amount of credit being added to the job\\n  event TokenCreditAddition(address indexed _job, address indexed _token, address indexed _provider, uint256 _amount);\\n\\n  /// @notice Emitted when Keep3rJobFundableCredits#withdrawTokenCreditsFromJob is called\\n  /// @param _job The address of the job from which the credits are withdrawn\\n  /// @param _token The credit being withdrawn from the job\\n  /// @param _receiver The user that receives the tokens\\n  /// @param _amount The amount of credit withdrawn\\n  event TokenCreditWithdrawal(address indexed _job, address indexed _token, address indexed _receiver, uint256 _amount);\\n\\n  /// @notice Emitted when Keep3rJobFundableLiquidity#approveLiquidity function is called\\n  /// @param _liquidity The address of the liquidity pair being approved\\n  event LiquidityApproval(address _liquidity);\\n\\n  /// @notice Emitted when Keep3rJobFundableLiquidity#revokeLiquidity function is called\\n  /// @param _liquidity The address of the liquidity pair being revoked\\n  event LiquidityRevocation(address _liquidity);\\n\\n  /// @notice Emitted when IKeep3rJobFundableLiquidity#addLiquidityToJob function is called\\n  /// @param _job The address of the job to which liquidity will be added\\n  /// @param _liquidity The address of the liquidity being added\\n  /// @param _provider The user that calls the function\\n  /// @param _amount The amount of liquidity being added\\n  event LiquidityAddition(address indexed _job, address indexed _liquidity, address indexed _provider, uint256 _amount);\\n\\n  /// @notice Emitted when IKeep3rJobFundableLiquidity#withdrawLiquidityFromJob function is called\\n  /// @param _job The address of the job of which liquidity will be withdrawn from\\n  /// @param _liquidity The address of the liquidity being withdrawn\\n  /// @param _receiver The receiver of the liquidity tokens\\n  /// @param _amount The amount of liquidity being withdrawn from the job\\n  event LiquidityWithdrawal(address indexed _job, address indexed _liquidity, address indexed _receiver, uint256 _amount);\\n\\n  /// @notice Emitted when Keep3rJobFundableLiquidity#addLiquidityToJob function is called\\n  /// @param _job The address of the job whose credits will be updated\\n  /// @param _rewardedAt The time at which the job was last rewarded\\n  /// @param _currentCredits The current credits of the job\\n  /// @param _periodCredits The credits of the job for the current period\\n  event LiquidityCreditsReward(address indexed _job, uint256 _rewardedAt, uint256 _currentCredits, uint256 _periodCredits);\\n\\n  /// @notice Emitted when Keep3rJobFundableLiquidity#forceLiquidityCreditsToJob function is called\\n  /// @param _job The address of the job whose credits will be updated\\n  /// @param _rewardedAt The time at which the job was last rewarded\\n  /// @param _currentCredits The current credits of the job\\n  event LiquidityCreditsForced(address indexed _job, uint256 _rewardedAt, uint256 _currentCredits);\\n\\n  /// @notice Emitted when Keep3rJobManager#addJob is called\\n  /// @param _job The address of the job to add\\n  /// @param _jobOwner The job's owner\\n  event JobAddition(address indexed _job, address indexed _jobOwner);\\n\\n  /// @notice Emitted when a keeper is validated before a job\\n  /// @param _gasLeft The amount of gas that the transaction has left at the moment of keeper validation\\n  event KeeperValidation(uint256 _gasLeft);\\n\\n  /// @notice Emitted when a keeper works a job\\n  /// @param _credit The address of the asset in which the keeper is paid\\n  /// @param _job The address of the job the keeper has worked\\n  /// @param _keeper The address of the keeper that has worked the job\\n  /// @param _amount The amount that has been paid out to the keeper in exchange for working the job\\n  /// @param _gasLeft The amount of gas that the transaction has left at the moment of payment\\n  event KeeperWork(address indexed _credit, address indexed _job, address indexed _keeper, uint256 _amount, uint256 _gasLeft);\\n\\n  /// @notice Emitted when Keep3rJobOwnership#changeJobOwnership is called\\n  /// @param _job The address of the job proposed to have a change of owner\\n  /// @param _owner The current owner of the job\\n  /// @param _pendingOwner The new address proposed to be the owner of the job\\n  event JobOwnershipChange(address indexed _job, address indexed _owner, address indexed _pendingOwner);\\n\\n  /// @notice Emitted when Keep3rJobOwnership#JobOwnershipAssent is called\\n  /// @param _job The address of the job which the proposed owner will now own\\n  /// @param _previousOwner The previous owner of the job\\n  /// @param _newOwner The newowner of the job\\n  event JobOwnershipAssent(address indexed _job, address indexed _previousOwner, address indexed _newOwner);\\n\\n  /// @notice Emitted when Keep3rJobMigration#migrateJob function is called\\n  /// @param _fromJob The address of the job that requests to migrate\\n  /// @param _toJob The address at which the job requests to migrate\\n  event JobMigrationRequested(address indexed _fromJob, address _toJob);\\n\\n  /// @notice Emitted when Keep3rJobMigration#acceptJobMigration function is called\\n  /// @param _fromJob The address of the job that requested to migrate\\n  /// @param _toJob The address at which the job had requested to migrate\\n  event JobMigrationSuccessful(address _fromJob, address indexed _toJob);\\n\\n  /// @notice Emitted when Keep3rJobDisputable#slashTokenFromJob is called\\n  /// @param _job The address of the job from which the token will be slashed\\n  /// @param _token The address of the token being slashed\\n  /// @param _slasher The user that slashes the token\\n  /// @param _amount The amount of the token being slashed\\n  event JobSlashToken(address indexed _job, address _token, address indexed _slasher, uint256 _amount);\\n\\n  /// @notice Emitted when Keep3rJobDisputable#slashLiquidityFromJob is called\\n  /// @param _job The address of the job from which the liquidity will be slashed\\n  /// @param _liquidity The address of the liquidity being slashed\\n  /// @param _slasher The user that slashes the liquidity\\n  /// @param _amount The amount of the liquidity being slashed\\n  event JobSlashLiquidity(address indexed _job, address _liquidity, address indexed _slasher, uint256 _amount);\\n\\n  /// @notice Emitted when a keeper or a job is disputed\\n  /// @param _jobOrKeeper The address of the disputed keeper/job\\n  /// @param _disputer The user that called the function and disputed the keeper\\n  event Dispute(address indexed _jobOrKeeper, address indexed _disputer);\\n\\n  /// @notice Emitted when a dispute is resolved\\n  /// @param _jobOrKeeper The address of the disputed keeper/job\\n  /// @param _resolver The user that called the function and resolved the dispute\\n  event Resolve(address indexed _jobOrKeeper, address indexed _resolver);\\n\\n  // Errors\\n\\n  /// @notice Throws if the reward period is less than the minimum reward period time\\n  error MinRewardPeriod();\\n\\n  /// @notice Throws if either a job or a keeper is disputed\\n  error Disputed();\\n\\n  /// @notice Throws if there are no bonded assets\\n  error BondsUnexistent();\\n\\n  /// @notice Throws if the time required to bond an asset has not passed yet\\n  error BondsLocked();\\n\\n  /// @notice Throws if there are no bonds to withdraw\\n  error UnbondsUnexistent();\\n\\n  /// @notice Throws if the time required to withdraw the bonds has not passed yet\\n  error UnbondsLocked();\\n\\n  /// @notice Throws if the address is already a registered slasher\\n  error SlasherExistent();\\n\\n  /// @notice Throws if caller is not a registered slasher\\n  error SlasherUnexistent();\\n\\n  /// @notice Throws if the address is already a registered disputer\\n  error DisputerExistent();\\n\\n  /// @notice Throws if caller is not a registered disputer\\n  error DisputerUnexistent();\\n\\n  /// @notice Throws if the msg.sender is not a slasher or is not a part of governance\\n  error OnlySlasher();\\n\\n  /// @notice Throws if the msg.sender is not a disputer or is not a part of governance\\n  error OnlyDisputer();\\n\\n  /// @notice Throws when an address is passed as a job, but that address is not a job\\n  error JobUnavailable();\\n\\n  /// @notice Throws when an action that requires an undisputed job is applied on a disputed job\\n  error JobDisputed();\\n\\n  /// @notice Throws when the address that is trying to register as a job is already a job\\n  error AlreadyAJob();\\n\\n  /// @notice Throws when the token is KP3R, as it should not be used for direct token payments\\n  error TokenUnallowed();\\n\\n  /// @notice Throws when the token withdraw cooldown has not yet passed\\n  error JobTokenCreditsLocked();\\n\\n  /// @notice Throws when the user tries to withdraw more tokens than it has\\n  error InsufficientJobTokenCredits();\\n\\n  /// @notice Throws when trying to add a job that has already been added\\n  error JobAlreadyAdded();\\n\\n  /// @notice Throws when the address that is trying to register as a keeper is already a keeper\\n  error AlreadyAKeeper();\\n\\n  /// @notice Throws when the liquidity being approved has already been approved\\n  error LiquidityPairApproved();\\n\\n  /// @notice Throws when the liquidity being removed has not been approved\\n  error LiquidityPairUnexistent();\\n\\n  /// @notice Throws when trying to add liquidity to an unapproved pool\\n  error LiquidityPairUnapproved();\\n\\n  /// @notice Throws when the job doesn't have the requested liquidity\\n  error JobLiquidityUnexistent();\\n\\n  /// @notice Throws when trying to remove more liquidity than the job has\\n  error JobLiquidityInsufficient();\\n\\n  /// @notice Throws when trying to add less liquidity than the minimum liquidity required\\n  error JobLiquidityLessThanMin();\\n\\n  /// @notice Throws if a variable is assigned to the zero address\\n  error ZeroAddress();\\n\\n  /// @notice Throws if the address claiming to be a job is not in the list of approved jobs\\n  error JobUnapproved();\\n\\n  /// @notice Throws if the amount of funds in the job is less than the payment that must be paid to the keeper that works that job\\n  error InsufficientFunds();\\n\\n  /// @notice Throws when the caller of the function is not the job owner\\n  error OnlyJobOwner();\\n\\n  /// @notice Throws when the caller of the function is not the pending job owner\\n  error OnlyPendingJobOwner();\\n\\n  /// @notice Throws when the address of the job that requests to migrate wants to migrate to its same address\\n  error JobMigrationImpossible();\\n\\n  /// @notice Throws when the _toJob address differs from the address being tracked in the pendingJobMigrations mapping\\n  error JobMigrationUnavailable();\\n\\n  /// @notice Throws when cooldown between migrations has not yet passed\\n  error JobMigrationLocked();\\n\\n  /// @notice Throws when the token trying to be slashed doesn't exist\\n  error JobTokenUnexistent();\\n\\n  /// @notice Throws when someone tries to slash more tokens than the job has\\n  error JobTokenInsufficient();\\n\\n  /// @notice Throws when a job or keeper is already disputed\\n  error AlreadyDisputed();\\n\\n  /// @notice Throws when a job or keeper is not disputed and someone tries to resolve the dispute\\n  error NotDisputed();\\n\\n  // Variables\\n\\n  /// @notice Address of Keep3rHelper's contract\\n  /// @return _keep3rHelper The address of Keep3rHelper's contract\\n  function keep3rHelper() external view returns (address _keep3rHelper);\\n\\n  /// @notice Address of Keep3rV1's contract\\n  /// @return _keep3rV1 The address of Keep3rV1's contract\\n  function keep3rV1() external view returns (address _keep3rV1);\\n\\n  /// @notice Address of Keep3rV1Proxy's contract\\n  /// @return _keep3rV1Proxy The address of Keep3rV1Proxy's contract\\n  function keep3rV1Proxy() external view returns (address _keep3rV1Proxy);\\n\\n  /// @notice Address of the KP3R-WETH pool\\n  /// @return _kp3rWethPool The address of KP3R-WETH pool\\n  function kp3rWethPool() external view returns (address _kp3rWethPool);\\n\\n  /// @notice The amount of time required to pass after a keeper has bonded assets for it to be able to activate\\n  /// @return _days The required bondTime in days\\n  function bondTime() external view returns (uint256 _days);\\n\\n  /// @notice The amount of time required to pass before a keeper can unbond what he has bonded\\n  /// @return _days The required unbondTime in days\\n  function unbondTime() external view returns (uint256 _days);\\n\\n  /// @notice The minimum amount of liquidity required to fund a job per liquidity\\n  /// @return _amount The minimum amount of liquidity in KP3R\\n  function liquidityMinimum() external view returns (uint256 _amount);\\n\\n  /// @notice The amount of time between each scheduled credits reward given to a job\\n  /// @return _days The reward period in days\\n  function rewardPeriodTime() external view returns (uint256 _days);\\n\\n  /// @notice The inflation period is the denominator used to regulate the emission of KP3R\\n  /// @return _period The denominator used to regulate the emission of KP3R\\n  function inflationPeriod() external view returns (uint256 _period);\\n\\n  /// @notice The fee to be sent to governance when a user adds liquidity to a job\\n  /// @return _amount The fee amount to be sent to governance when a user adds liquidity to a job\\n  function fee() external view returns (uint256 _amount);\\n\\n  // solhint-disable func-name-mixedcase\\n  /// @notice The base that will be used to calculate the fee\\n  /// @return _base The base that will be used to calculate the fee\\n  function BASE() external view returns (uint256 _base);\\n\\n  /// @notice The minimum rewardPeriodTime value to be set\\n  /// @return _minPeriod The minimum reward period in seconds\\n  function MIN_REWARD_PERIOD_TIME() external view returns (uint256 _minPeriod);\\n\\n  /// @notice Maps an address to a boolean to determine whether the address is a slasher or not.\\n  /// @return _isSlasher Whether the address is a slasher or not\\n  function slashers(address _slasher) external view returns (bool _isSlasher);\\n\\n  /// @notice Maps an address to a boolean to determine whether the address is a disputer or not.\\n  /// @return _isDisputer Whether the address is a disputer or not\\n  function disputers(address _disputer) external view returns (bool _isDisputer);\\n\\n  /// @notice Tracks the total KP3R earnings of a keeper since it started working\\n  /// @return _workCompleted Total KP3R earnings of a keeper since it started working\\n  function workCompleted(address _keeper) external view returns (uint256 _workCompleted);\\n\\n  /// @notice Tracks when a keeper was first registered\\n  /// @return _timestamp The time at which the keeper was first registered\\n  function firstSeen(address _keeper) external view returns (uint256 _timestamp);\\n\\n  /// @notice Tracks if a keeper or job has a pending dispute\\n  /// @return _disputed Whether a keeper or job has a pending dispute\\n  function disputes(address _keeperOrJob) external view returns (bool _disputed);\\n\\n  /// @notice Allows governance to create a dispute for a given keeper/job\\n  /// @param _jobOrKeeper The address in dispute\\n  function dispute(address _jobOrKeeper) external;\\n\\n  /// @notice Allows governance to resolve a dispute on a keeper/job\\n  /// @param _jobOrKeeper The address cleared\\n  function resolve(address _jobOrKeeper) external;\\n\\n  /// @notice Tracks how much a keeper has bonded of a certain token\\n  /// @return _bonds Amount of a certain token that a keeper has bonded\\n  function bonds(address _keeper, address _bond) external view returns (uint256 _bonds);\\n\\n  /// @notice The current token credits available for a job\\n  /// @return _amount The amount of token credits available for a job\\n  function jobTokenCredits(address _job, address _token) external view returns (uint256 _amount);\\n\\n  /// @notice Tracks the amount of assets deposited in pending bonds\\n  /// @return _pendingBonds Amount of a certain asset a keeper has unbonding\\n  function pendingBonds(address _keeper, address _bonding) external view returns (uint256 _pendingBonds);\\n\\n  /// @notice Tracks when a bonding for a keeper can be activated\\n  /// @return _timestamp Time at which the bonding for a keeper can be activated\\n  function canActivateAfter(address _keeper, address _bonding) external view returns (uint256 _timestamp);\\n\\n  /// @notice Tracks when keeper bonds are ready to be withdrawn\\n  /// @return _timestamp Time at which the keeper bonds are ready to be withdrawn\\n  function canWithdrawAfter(address _keeper, address _bonding) external view returns (uint256 _timestamp);\\n\\n  /// @notice Tracks how much keeper bonds are to be withdrawn\\n  /// @return _pendingUnbonds The amount of keeper bonds that are to be withdrawn\\n  function pendingUnbonds(address _keeper, address _bonding) external view returns (uint256 _pendingUnbonds);\\n\\n  /// @notice Checks whether the address has ever bonded an asset\\n  /// @return _hasBonded Whether the address has ever bonded an asset\\n  function hasBonded(address _keeper) external view returns (bool _hasBonded);\\n\\n  /// @notice Last block where tokens were added to the job [job => token => timestamp]\\n  /// @return _timestamp The last block where tokens were added to the job\\n  function jobTokenCreditsAddedAt(address _job, address _token) external view returns (uint256 _timestamp);\\n\\n  // Methods\\n\\n  /// @notice Add credit to a job to be paid out for work\\n  /// @param _job The address of the job being credited\\n  /// @param _token The address of the token being credited\\n  /// @param _amount The amount of credit being added\\n  function addTokenCreditsToJob(\\n    address _job,\\n    address _token,\\n    uint256 _amount\\n  ) external;\\n\\n  /// @notice Withdraw credit from a job\\n  /// @param _job The address of the job from which the credits are withdrawn\\n  /// @param _token The address of the token being withdrawn\\n  /// @param _amount The amount of token to be withdrawn\\n  /// @param _receiver The user that will receive tokens\\n  function withdrawTokenCreditsFromJob(\\n    address _job,\\n    address _token,\\n    uint256 _amount,\\n    address _receiver\\n  ) external;\\n\\n  /// @notice Lists liquidity pairs\\n  /// @return _list An array of addresses with all the approved liquidity pairs\\n  function approvedLiquidities() external view returns (address[] memory _list);\\n\\n  /// @notice Amount of liquidity in a specified job\\n  /// @param _job The address of the job being checked\\n  /// @param _liquidity The address of the liquidity we are checking\\n  /// @return _amount Amount of liquidity in the specified job\\n  function liquidityAmount(address _job, address _liquidity) external view returns (uint256 _amount);\\n\\n  /// @notice Last time the job was rewarded liquidity credits\\n  /// @param _job The address of the job being checked\\n  /// @return _timestamp Timestamp of the last time the job was rewarded liquidity credits\\n  function rewardedAt(address _job) external view returns (uint256 _timestamp);\\n\\n  /// @notice Last time the job was worked\\n  /// @param _job The address of the job being checked\\n  /// @return _timestamp Timestamp of the last time the job was worked\\n  function workedAt(address _job) external view returns (uint256 _timestamp);\\n\\n  /// @notice Maps the job to the owner of the job (job => user)\\n  /// @return _owner The addres of the owner of the job\\n  function jobOwner(address _job) external view returns (address _owner);\\n\\n  /// @notice Maps the owner of the job to its pending owner (job => user)\\n  /// @return _pendingOwner The address of the pending owner of the job\\n  function jobPendingOwner(address _job) external view returns (address _pendingOwner);\\n\\n  /// @notice Maps the jobs that have requested a migration to the address they have requested to migrate to\\n  /// @return _toJob The address to which the job has requested to migrate to\\n  function pendingJobMigrations(address _fromJob) external view returns (address _toJob);\\n\\n  // Methods\\n\\n  /// @notice Sets the Keep3rHelper address\\n  /// @param _keep3rHelper The Keep3rHelper address\\n  function setKeep3rHelper(address _keep3rHelper) external;\\n\\n  /// @notice Sets the Keep3rV1 address\\n  /// @param _keep3rV1 The Keep3rV1 address\\n  function setKeep3rV1(address _keep3rV1) external;\\n\\n  /// @notice Sets the Keep3rV1Proxy address\\n  /// @param _keep3rV1Proxy The Keep3rV1Proxy address\\n  function setKeep3rV1Proxy(address _keep3rV1Proxy) external;\\n\\n  /// @notice Sets the KP3R-WETH pool address\\n  /// @param _kp3rWethPool The KP3R-WETH pool address\\n  function setKp3rWethPool(address _kp3rWethPool) external;\\n\\n  /// @notice Sets the bond time required to activate as a keeper\\n  /// @param _bond The new bond time\\n  function setBondTime(uint256 _bond) external;\\n\\n  /// @notice Sets the unbond time required unbond what has been bonded\\n  /// @param _unbond The new unbond time\\n  function setUnbondTime(uint256 _unbond) external;\\n\\n  /// @notice Sets the minimum amount of liquidity required to fund a job\\n  /// @param _liquidityMinimum The new minimum amount of liquidity\\n  function setLiquidityMinimum(uint256 _liquidityMinimum) external;\\n\\n  /// @notice Sets the time required to pass between rewards for jobs\\n  /// @param _rewardPeriodTime The new amount of time required to pass between rewards\\n  function setRewardPeriodTime(uint256 _rewardPeriodTime) external;\\n\\n  /// @notice Sets the new inflation period\\n  /// @param _inflationPeriod The new inflation period\\n  function setInflationPeriod(uint256 _inflationPeriod) external;\\n\\n  /// @notice Sets the new fee\\n  /// @param _fee The new fee\\n  function setFee(uint256 _fee) external;\\n\\n  /// @notice Registers a slasher by updating the slashers mapping\\n  function addSlasher(address _slasher) external;\\n\\n  /// @notice Removes a slasher by updating the slashers mapping\\n  function removeSlasher(address _slasher) external;\\n\\n  /// @notice Registers a disputer by updating the disputers mapping\\n  function addDisputer(address _disputer) external;\\n\\n  /// @notice Removes a disputer by updating the disputers mapping\\n  function removeDisputer(address _disputer) external;\\n\\n  /// @notice Lists all jobs\\n  /// @return _jobList Array with all the jobs in _jobs\\n  function jobs() external view returns (address[] memory _jobList);\\n\\n  /// @notice Lists all keepers\\n  /// @return _keeperList Array with all the jobs in keepers\\n  function keepers() external view returns (address[] memory _keeperList);\\n\\n  /// @notice Beginning of the bonding process\\n  /// @param _bonding The asset being bound\\n  /// @param _amount The amount of bonding asset being bound\\n  function bond(address _bonding, uint256 _amount) external;\\n\\n  /// @notice Beginning of the unbonding process\\n  /// @param _bonding The asset being unbound\\n  /// @param _amount Allows for partial unbonding\\n  function unbond(address _bonding, uint256 _amount) external;\\n\\n  /// @notice End of the bonding process after bonding time has passed\\n  /// @param _bonding The asset being activated as bond collateral\\n  function activate(address _bonding) external;\\n\\n  /// @notice Withdraw funds after unbonding has finished\\n  /// @param _bonding The asset to withdraw from the bonding pool\\n  function withdraw(address _bonding) external;\\n\\n  /// @notice Allows governance to slash a keeper based on a dispute\\n  /// @param _keeper The address being slashed\\n  /// @param _bonded The asset being slashed\\n  /// @param _amount The amount being slashed\\n  function slash(\\n    address _keeper,\\n    address _bonded,\\n    uint256 _amount\\n  ) external;\\n\\n  /// @notice Blacklists a keeper from participating in the network\\n  /// @param _keeper The address being slashed\\n  function revoke(address _keeper) external;\\n\\n  /// @notice Allows any caller to add a new job\\n  /// @param _job Address of the contract for which work should be performed\\n  function addJob(address _job) external;\\n\\n  /// @notice Returns the liquidity credits of a given job\\n  /// @param _job The address of the job of which we want to know the liquidity credits\\n  /// @return _amount The liquidity credits of a given job\\n  function jobLiquidityCredits(address _job) external view returns (uint256 _amount);\\n\\n  /// @notice Returns the credits of a given job for the current period\\n  /// @param _job The address of the job of which we want to know the period credits\\n  /// @return _amount The credits the given job has at the current period\\n  function jobPeriodCredits(address _job) external view returns (uint256 _amount);\\n\\n  /// @notice Calculates the total credits of a given job\\n  /// @param _job The address of the job of which we want to know the total credits\\n  /// @return _amount The total credits of the given job\\n  function totalJobCredits(address _job) external view returns (uint256 _amount);\\n\\n  /// @notice Calculates how many credits should be rewarded periodically for a given liquidity amount\\n  /// @dev _periodCredits = underlying KP3Rs for given liquidity amount * rewardPeriod / inflationPeriod\\n  /// @param _liquidity The liquidity to provide\\n  /// @param _amount The amount of liquidity to provide\\n  /// @return _periodCredits The amount of KP3R periodically minted for the given liquidity\\n  function quoteLiquidity(address _liquidity, uint256 _amount) external view returns (uint256 _periodCredits);\\n\\n  /// @notice Observes the current state of the liquidity pair being observed and updates TickCache with the information\\n  /// @param _liquidity The liquidity pair being observed\\n  /// @return _tickCache The updated TickCache\\n  function observeLiquidity(address _liquidity) external view returns (TickCache memory _tickCache);\\n\\n  /// @notice Gifts liquidity credits to the specified job\\n  /// @param _job The address of the job being credited\\n  /// @param _amount The amount of liquidity credits to gift\\n  function forceLiquidityCreditsToJob(address _job, uint256 _amount) external;\\n\\n  /// @notice Approve a liquidity pair for being accepted in future\\n  /// @param _liquidity The address of the liquidity accepted\\n  function approveLiquidity(address _liquidity) external;\\n\\n  /// @notice Revoke a liquidity pair from being accepted in future\\n  /// @param _liquidity The liquidity no longer accepted\\n  function revokeLiquidity(address _liquidity) external;\\n\\n  /// @notice Allows anyone to fund a job with liquidity\\n  /// @param _job The address of the job to assign liquidity to\\n  /// @param _liquidity The liquidity being added\\n  /// @param _amount The amount of liquidity tokens to add\\n  function addLiquidityToJob(\\n    address _job,\\n    address _liquidity,\\n    uint256 _amount\\n  ) external;\\n\\n  /// @notice Unbond liquidity for a job\\n  /// @dev Can only be called by the job's owner\\n  /// @param _job The address of the job being unbound from\\n  /// @param _liquidity The liquidity being unbound\\n  /// @param _amount The amount of liquidity being removed\\n  function unbondLiquidityFromJob(\\n    address _job,\\n    address _liquidity,\\n    uint256 _amount\\n  ) external;\\n\\n  /// @notice Withdraw liquidity from a job\\n  /// @param _job The address of the job being withdrawn from\\n  /// @param _liquidity The liquidity being withdrawn\\n  /// @param _receiver The address that will receive the withdrawn liquidity\\n  function withdrawLiquidityFromJob(\\n    address _job,\\n    address _liquidity,\\n    address _receiver\\n  ) external;\\n\\n  /// @notice Confirms if the current keeper is registered, can be used for general (non critical) functions\\n  /// @param _keeper The keeper being investigated\\n  /// @return _isKeeper Whether the address passed as a parameter is a keeper or not\\n  function isKeeper(address _keeper) external returns (bool _isKeeper);\\n\\n  /// @notice Confirms if the current keeper is registered and has a minimum bond of any asset. Should be used for protected functions\\n  /// @param _keeper The keeper to check\\n  /// @param _bond The bond token being evaluated\\n  /// @param _minBond The minimum amount of bonded tokens\\n  /// @param _earned The minimum funds earned in the keepers lifetime\\n  /// @param _age The minimum keeper age required\\n  /// @return _isBondedKeeper Whether the `_keeper` meets the given requirements\\n  function isBondedKeeper(\\n    address _keeper,\\n    address _bond,\\n    uint256 _minBond,\\n    uint256 _earned,\\n    uint256 _age\\n  ) external returns (bool _isBondedKeeper);\\n\\n  /// @notice Implemented by jobs to show that a keeper performed work\\n  /// @dev Automatically calculates the payment for the keeper\\n  /// @param _keeper Address of the keeper that performed the work\\n  function worked(address _keeper) external;\\n\\n  /// @notice Implemented by jobs to show that a keeper performed work\\n  /// @dev Pays the keeper that performs the work with KP3R\\n  /// @param _keeper Address of the keeper that performed the work\\n  /// @param _payment The reward that should be allocated for the job\\n  function bondedPayment(address _keeper, uint256 _payment) external;\\n\\n  /// @notice Implemented by jobs to show that a keeper performed work\\n  /// @dev Pays the keeper that performs the work with a specific token\\n  /// @param _token The asset being awarded to the keeper\\n  /// @param _keeper Address of the keeper that performed the work\\n  /// @param _amount The reward that should be allocated\\n  function directTokenPayment(\\n    address _token,\\n    address _keeper,\\n    uint256 _amount\\n  ) external;\\n\\n  /// @notice Proposes a new address to be the owner of the job\\n  function changeJobOwnership(address _job, address _newOwner) external;\\n\\n  /// @notice The proposed address accepts to be the owner of the job\\n  function acceptJobOwnership(address _job) external;\\n\\n  /// @notice Initializes the migration process for a job by adding the request to the pendingJobMigrations mapping\\n  /// @param _fromJob The address of the job that is requesting to migrate\\n  /// @param _toJob The address at which the job is requesting to migrate\\n  function migrateJob(address _fromJob, address _toJob) external;\\n\\n  /// @notice Completes the migration process for a job\\n  /// @dev Unbond/withdraw process doesn't get migrated\\n  /// @param _fromJob The address of the job that requested to migrate\\n  /// @param _toJob The address to which the job wants to migrate to\\n  function acceptJobMigration(address _fromJob, address _toJob) external;\\n\\n  /// @notice Allows governance or slasher to slash a job specific token\\n  /// @param _job The address of the job from which the token will be slashed\\n  /// @param _token The address of the token that will be slashed\\n  /// @param _amount The amount of the token that will be slashed\\n  function slashTokenFromJob(\\n    address _job,\\n    address _token,\\n    uint256 _amount\\n  ) external;\\n\\n  /// @notice Allows governance or a slasher to slash liquidity from a job\\n  /// @param _job The address being slashed\\n  /// @param _liquidity The address of the liquidity that will be slashed\\n  /// @param _amount The amount of liquidity that will be slashed\\n  function slashLiquidityFromJob(\\n    address _job,\\n    address _liquidity,\\n    uint256 _amount\\n  ) external;\\n}\\n\",\"keccak256\":\"0xa44783babc800d4836052ef0fcb1853eaf2dc41983ba3e8b066e35b7f7b193e6\",\"license\":\"MIT\"},\"solidity/interfaces/external/IV2Keeper.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity >=0.6.8;\\n\\ninterface IV2Keeper {\\n  // Getters\\n  function jobs() external view returns (address[] memory);\\n\\n  event JobAdded(address _job);\\n  event JobRemoved(address _job);\\n\\n  // Setters\\n  function addJobs(address[] calldata _jobs) external;\\n\\n  function addJob(address _job) external;\\n\\n  function removeJob(address _job) external;\\n\\n  // Jobs actions\\n  function tend(address _strategy) external;\\n\\n  function harvest(address _strategy) external;\\n}\\n\",\"keccak256\":\"0xdb7e3afc3d6d75a61ed21f4bf8150d5739cc243e290b713fc32cbd59426d05ca\",\"license\":\"MIT\"},\"solidity/interfaces/utils/IBaseErrors.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity >=0.8.4 <0.9.0;\\n\\ninterface IBaseErrors {\\n  /// @notice Throws if a variable is assigned to the zero address\\n  error ZeroAddress();\\n\\n  /// @notice Throws if a set of correlated input param arrays differ in lengths\\n  error WrongLengths();\\n}\\n\",\"keccak256\":\"0x182136aa0b9df2580baa0d893dbaea04f6aecb411bdb1cef754a56a5ece5ca02\",\"license\":\"MIT\"},\"solidity/interfaces/utils/IGovernable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity >=0.8.4 <0.9.0;\\n\\nimport './IBaseErrors.sol';\\n\\ninterface IGovernable is IBaseErrors {\\n  // events\\n\\n  /// @notice Emitted when a new pending governor is set\\n  /// @param _governor Address of the current governor\\n  /// @param _pendingGovernor Address of the proposed next governor\\n  event PendingGovernorSet(address _governor, address _pendingGovernor);\\n\\n  /// @notice Emitted when a new governor is set\\n  /// @param _newGovernor Address of the new governor\\n  event PendingGovernorAccepted(address _newGovernor);\\n\\n  // errors\\n\\n  /// @notice Throws if a non-governor user tries to call a OnlyGovernor function\\n  error OnlyGovernor();\\n  /// @notice Throws if a non-pending-governor user tries to call a OnlyPendingGovernor function\\n  error OnlyPendingGovernor();\\n\\n  // views\\n\\n  /// @return _governor Address of the current governor\\n  function governor() external view returns (address _governor);\\n\\n  /// @return _pendingGovernor Address of the current pending governor\\n  function pendingGovernor() external view returns (address _pendingGovernor);\\n\\n  // methods\\n\\n  /// @notice Allows a governor to propose a new governor\\n  /// @param _pendingGovernor Address of the proposed new governor\\n  function setPendingGovernor(address _pendingGovernor) external;\\n\\n  /// @notice Allows a proposed governor to accept the governance\\n  function acceptPendingGovernor() external;\\n}\\n\",\"keccak256\":\"0x1b3b3b30d2ca3a8efcaf7e5162de36a0e7964de617d925c8094d79fd8826573e\",\"license\":\"MIT\"},\"solidity/interfaces/utils/IKeep3rBondedJob.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity >=0.8.4 <0.9.0;\\n\\nimport './IKeep3rJob.sol';\\n\\ninterface IKeep3rBondedJob is IKeep3rJob {\\n  // events\\n\\n  /// @notice Emitted when a new set of requirements is set\\n  /// @param _bond Address of the token required to bond to work the job\\n  /// @param _minBond Amount of tokens required to bond to work the job\\n  /// @param _earned Amount of KP3R earnings required to work the job\\n  /// @param _age Amount of seconds since keeper registration required to work the job\\n  event Keep3rRequirementsSet(address _bond, uint256 _minBond, uint256 _earned, uint256 _age);\\n\\n  // views\\n\\n  /// @return _requiredBond Address of the token required to bond to work the job\\n  function requiredBond() external view returns (address _requiredBond);\\n\\n  /// @return _requiredMinBond Amount of tokens required to bond to work the job\\n  function requiredMinBond() external view returns (uint256 _requiredMinBond);\\n\\n  /// @return _requiredEarnings Amount of KP3R earnings required to work the job\\n  function requiredEarnings() external view returns (uint256 _requiredEarnings);\\n\\n  /// @return _requiredAge Amount of seconds since keeper registration required to work the job\\n  function requiredAge() external view returns (uint256 _requiredAge);\\n\\n  // methods\\n\\n  /// @notice Allows the governor to set new requirements to work the job\\n  /// @param _bond Address of the token required to bond to work the job\\n  /// @param _minBond Amount of tokens required to bond to work the job\\n  /// @param _earned Amount of KP3R earnings required to work the job\\n  /// @param _age Amount of seconds since keeper registration required to work the job\\n  function setKeep3rRequirements(\\n    address _bond,\\n    uint256 _minBond,\\n    uint256 _earned,\\n    uint256 _age\\n  ) external;\\n}\\n\",\"keccak256\":\"0x4034154277ead1cd15262ab1156b793be8136b71c1a111fc9a6959b5f1da7bce\",\"license\":\"MIT\"},\"solidity/interfaces/utils/IKeep3rJob.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity >=0.8.4 <0.9.0;\\n\\nimport './IGovernable.sol';\\n\\ninterface IKeep3rJob is IGovernable {\\n  // events\\n\\n  /// @notice Emitted when a new Keep3r contract is set\\n  /// @param _keep3r Address of the new Keep3r contract\\n  event Keep3rSet(address _keep3r);\\n\\n  // errors\\n\\n  /// @notice Throws when a keeper fails the validation\\n  error KeeperNotValid();\\n\\n  // views\\n\\n  /// @return _keep3r Address of the Keep3r contract\\n  function keep3r() external view returns (address _keep3r);\\n\\n  // methods\\n\\n  /// @notice Allows governor to set a new Keep3r contract\\n  /// @param _keep3r Address of the new Keep3r contract\\n  function setKeep3r(address _keep3r) external;\\n}\\n\",\"keccak256\":\"0x84e2d5bac114322ff5917006204b17c390fb45f0e1b0553e22e146dc2772d459\",\"license\":\"MIT\"},\"solidity/interfaces/utils/IKeep3rMeteredJob.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity >=0.8.4 <0.9.0;\\n\\nimport './IKeep3rJob.sol';\\n\\ninterface IKeep3rMeteredJob is IKeep3rJob {\\n  // events\\n\\n  /// @notice Emitted when a new Keep3rHelper contract is set\\n  /// @param _keep3rHelper Address of the new Keep3rHelper contract\\n  event Keep3rHelperSet(address _keep3rHelper);\\n\\n  /// @notice Emitted when a new gas bonus amount is set\\n  /// @param _gasBonus Amount of gas to add to cover unaccounted gas\\n  event GasBonusSet(uint256 _gasBonus);\\n\\n  /// @notice Emitted when a new gas bonus multiplier is set\\n  /// @param _gasMultiplier Multiplier that boosts gas record to calculate the keeper reward\\n  event GasMultiplierSet(uint256 _gasMultiplier);\\n\\n  /// @notice Emitted when a new gas bonus multiplier maximum is set\\n  /// @param _maxMultiplier Maximum acceptable gasMultiplier to be set\\n  event MaxMultiplierSet(uint256 _maxMultiplier);\\n\\n  /// @notice Emitted when a metered job is worked\\n  /// @param _initialGas First gas record registered\\n  /// @param _gasAfterWork Gas record registered after work\\n  /// @param _bonus Fixed amount of gas added to the accountance\\n  event GasMetered(uint256 _initialGas, uint256 _gasAfterWork, uint256 _bonus);\\n\\n  // errors\\n  error MaxMultiplier();\\n\\n  // views\\n\\n  /// @return _keep3rHelper Address of the Keep3rHelper contract\\n  function keep3rHelper() external view returns (address _keep3rHelper);\\n\\n  /// @return _gasBonus Amount of gas to add to cover unaccounted gas\\n  function gasBonus() external view returns (uint256 _gasBonus);\\n\\n  /// @return _gasMultiplier Multiplier that boosts gas record to calculate the keeper reward\\n  function gasMultiplier() external view returns (uint256 _gasMultiplier);\\n\\n  /// @return _maxMultiplier Maximum acceptable gasMultiplier to be set\\n  function maxMultiplier() external view returns (uint256 _maxMultiplier);\\n\\n  // solhint-disable-next-line func-name-mixedcase, var-name-mixedcase\\n  function BASE() external view returns (uint32 _BASE);\\n\\n  // methods\\n\\n  /// @notice Allows governor to set a new Keep3rHelper contract\\n  /// @param _keep3rHelper Address of the new Keep3rHelper contract\\n  function setKeep3rHelper(address _keep3rHelper) external;\\n\\n  /// @notice Allows governor to set a new gas bonus amount\\n  /// @param _gasBonus New amount of gas to add to cover unaccounted gas\\n  function setGasBonus(uint256 _gasBonus) external;\\n\\n  /// @notice Allows governor to set a new gas multiplier\\n  /// @param _gasMultiplier New multiplier that boosts gas record to calculate the keeper reward\\n  function setGasMultiplier(uint256 _gasMultiplier) external;\\n\\n  /// @notice Allows governor to set a new gas multiplier maximum\\n  /// @param _maxMultiplier New maximum acceptable gasMultiplier to be set\\n  function setMaxMultiplier(uint256 _maxMultiplier) external;\\n}\\n\",\"keccak256\":\"0x85a5957ba61f84d7678897385978154ecbd9ff1a7c67898c1e44f00dd643e14e\",\"license\":\"MIT\"},\"solidity/interfaces/utils/IOnlyEOA.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity >=0.8.4 <0.9.0;\\n\\ninterface IOnlyEOA {\\n  // events\\n\\n  /// @notice Emitted when onlyEOA is set\\n  event OnlyEOASet(bool _onlyEOA);\\n\\n  // errors\\n\\n  /// @notice Throws when keeper is not tx.origin\\n  error OnlyEOA();\\n\\n  // views\\n\\n  /// @return _onlyEOA Whether the keeper is required to be an EOA or not\\n  function onlyEOA() external returns (bool _onlyEOA);\\n\\n  // methods\\n\\n  /// @notice Allows governor to set the onlyEOA condition\\n  /// @param _onlyEOA Whether the keeper is required to be an EOA or not\\n  function setOnlyEOA(bool _onlyEOA) external;\\n}\\n\",\"keccak256\":\"0x7824d1c97c7ee77ab33cd683995ad29962108e4d075a0d4ef675a548af07025b\",\"license\":\"MIT\"},\"solidity/interfaces/utils/IPausable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity >=0.8.4 <0.9.0;\\n\\nimport './IGovernable.sol';\\n\\ninterface IPausable is IGovernable {\\n  // events\\n\\n  /// @notice Emitted when the contract pause is switched\\n  /// @param _paused Whether the contract is paused or not\\n  event PauseSet(bool _paused);\\n\\n  // errors\\n\\n  /// @notice Throws when a keeper tries to work a paused contract\\n  error Paused();\\n\\n  /// @notice Throws when governor tries to switch pause to the same state as before\\n  error NoChangeInPause();\\n\\n  // views\\n\\n  /// @return _paused Whether the contract is paused or not\\n  function paused() external view returns (bool _paused);\\n\\n  // methods\\n\\n  /// @notice Allows governor to pause or unpause the contract\\n  /// @param _paused Whether the contract should be paused or not\\n  function setPause(bool _paused) external;\\n}\\n\",\"keccak256\":\"0xe588c9b4d2d34ad84635955f0519bdee8d03471d0da6f4194939a7d016965648\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x60806040526009805474eb02addcfd8b773a5ffa6b9d1fe99c566f8c44cc00610100600160a81b0319909116179055600a80546001600160a01b031990811673d36ac9ff5562abb541f51345f340fb650547a6611790915562014ff0600b55612ee0600c55613a98600d55600e8054909116731ceb5cb57c4d4e2b2433641b95dd330a33185a441790556802b5e3af16b1880000600f55348015620000a357600080fd5b5060405162001e5338038062001e53833981016040819052620000c69162000347565b600080546001600160a01b0319166001600160a01b038c161790558a898b8a81846001600160a01b0381166200010f5760405163d92e233d60e01b815260040160405180910390fd5b600180546001600160a01b03199081166001600160a01b039384161790915560038054909116918616919091179055508015620001515762000151816200019b565b505050506200016687620001c260201b60201c565b62000171866200021f565b6200017f858585856200026e565b6200018a81620002e8565b50505050505050505050506200040e565b80600003620001bd57604051636972b64d60e01b815260040160405180910390fd5b600855565b60098054610100600160a81b0319166101006001600160a01b038416908102919091179091556040519081527f0fec338132ef1fa68cd11242357e5e5e5af67dfd0c957b53ef411bca535817ef906020015b60405180910390a150565b600a80546001600160a01b0319166001600160a01b0383169081179091556040519081527f77e14ebc8982ca2b21d8410b77a6ca8a857864dfab5d337f154fbacea73c11919060200162000214565b600e80546001600160a01b0319166001600160a01b038616908117909155600f8490556010839055601182905560408051918252602082018590528101839052606081018290527fadc260414d0381ec9727c6f819aa0ebe789ad81016c176765f40d3bc301e5d6b9060800160405180910390a150505050565b6012805460ff19168215159081179091556040519081527fa9bf0ee725a8887f07a03c36e33aa100bb0218d44b9fff855be8504c480ab99b9060200162000214565b80516001600160a01b03811681146200034257600080fd5b919050565b60008060008060008060008060008060006101608c8e0312156200036a57600080fd5b620003758c6200032a565b9a506200038560208d016200032a565b99506200039560408d016200032a565b985060608c01519750620003ac60808d016200032a565b9650620003bc60a08d016200032a565b9550620003cc60c08d016200032a565b945060e08c015193506101008c015192506101208c015191506101408c01518015158114620003fa57600080fd5b809150509295989b509295989b9093969950565b611a35806200041e6000396000f3fe608060405234801561001057600080fd5b506004361061025e5760003560e01c806372da828a11610146578063d9f9027f116100c3578063ec342ad011610087578063ec342ad014610514578063ef47da6d14610532578063f11a1d1a14610545578063f235757f14610558578063fb2a410a1461056b578063fbea57091461057857600080fd5b8063d9f9027f146104c7578063dd7ba420146104dc578063e06a7cb9146104ef578063e3056a34146104f8578063ea3c2b9c1461050b57600080fd5b806392b3b2651161010a57806392b3b265146104685780639f4713031461047b578063b9a52e281461048e578063bedb86fb146104a1578063c9411e22146104b457600080fd5b806372da828a1461041357806373da47c81461042657806374c2ca831461042f578063780b5c231461044257806390f296431461045557600080fd5b806326e6cd26116101df5780635905b407116101a35780635905b407146103a65780635c975abb146103b957806362ba54a9146103d6578063634c7bb5146103df57806365834acc146103f75780636b1b6e3e1461040a57600080fd5b806326e6cd261461033a57806328584aa71461034d57806336df7ea51461036d5780633ff8bbf6146103805780634cc18e571461039357600080fd5b806313f6986d1161022657806313f6986d146102f057806314f29a1d146102f857806316ea58da1461030b578063175188e81461031457806325fc3b221461032757600080fd5b806301526a43146102635780630187aea0146102785780630c340a241461029457806310262803146102bf5780631078f388146102df575b600080fd5b610276610271366004611705565b61058b565b005b610281600d5481565b6040519081526020015b60405180910390f35b6001546102a7906001600160a01b031681565b6040516001600160a01b03909116815260200161028b565b6102816102cd36600461173a565b60076020526000908152604090205481565b6000546001600160a01b03166102a7565b6102766105c2565b610276610306366004611705565b6105f7565b610281600b5481565b61027661032236600461173a565b61062b565b6102766103353660046117a1565b61063d565b61027661034836600461173a565b6106d2565b61028161035b36600461173a565b60066020526000908152604090205481565b61027661037b36600461173a565b61071b565b600e546102a7906001600160a01b031681565b6102766103a136600461173a565b6108c6565b6102766103b436600461180d565b6108fa565b6009546103c69060ff1681565b604051901515815260200161028b565b61028160105481565b6009546102a79061010090046001600160a01b031681565b6103c661040536600461173a565b610937565b61028160115481565b61027661042136600461173a565b6109ad565b610281600f5481565b61027661043d366004611705565b6109e1565b610276610450366004611854565b6109f3565b610276610463366004611705565b610a27565b6003546102a7906001600160a01b031681565b6103c661048936600461173a565b610a5b565b61027661049c366004611871565b610a66565b6102766104af366004611854565b610a7d565b6102766104c2366004611871565b610ab1565b6104cf610ac4565b60405161028b919061189b565b6102766104ea36600461173a565b610b73565b61028160085481565b6002546102a7906001600160a01b031681565b610281600c5481565b61051d61271081565b60405163ffffffff909116815260200161028b565b61027661054036600461173a565b610b85565b600a546102a7906001600160a01b031681565b61027661056636600461173a565b610bce565b6012546103c69060ff1681565b6102766105863660046117a1565b610c02565b6001546001600160a01b031633146105b65760405163070545c960e51b815260040160405180910390fd5b6105bf81610c90565b50565b6002546001600160a01b031633146105ed57604051639ba0305d60e01b815260040160405180910390fd5b6105f5610ccc565b565b6001546001600160a01b031633146106225760405163070545c960e51b815260040160405180910390fd5b6105bf81610d2a565b61063433610d82565b6105bf81610dc4565b61064633610d82565b828114610666576040516381e4d28d60e01b815260040160405180910390fd5b60005b838110156106cb576106b9858583818110610686576106866118e8565b905060200201602081019061069b919061173a565b8484848181106106ad576106ad6118e8565b90506020020135610e4a565b806106c381611914565b915050610669565b5050505050565b6001546001600160a01b031633146106fd5760405163070545c960e51b815260040160405180910390fd5b600380546001600160a01b0319166001600160a01b03831617905550565b60005a905061072933610ee0565b60095460ff161561074d576040516313d0ff5960e31b815260040160405180910390fd5b61075682610efd565b60005a9050600061271063ffffffff16600c5461078a600b54858761077b919061192d565b6107859190611944565b610f80565b610794919061195c565b61079e919061197b565b600a54604051633b46f5db60e21b8152600481018390529192506000916001600160a01b039091169063ed1bd76c90602401602060405180830381865afa1580156107ed573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610811919061199d565b6009546040516308a336b960e11b81523360048201526024810183905291925061010090046001600160a01b0316906311466d7290604401600060405180830381600087803b15801561086357600080fd5b505af1158015610877573d6000803e3d6000fd5b5050600b54604080518881526020810188905280820192909252517f5b3acbf5cbe55940e1bd9235bb985ccca97e9028d7489290f08e6504e76b88d39350908190036060019150a15050505050565b6001546001600160a01b031633146108f15760405163070545c960e51b815260040160405180910390fd5b6105bf81610f8c565b6001546001600160a01b031633146109255760405163070545c960e51b815260040160405180910390fd5b61093184848484610fe2565b50505050565b60008054604051631960d2b360e21b81526001600160a01b038481166004830152909116906365834acc906024015b602060405180830381865afa158015610983573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906109a791906119b6565b92915050565b6001546001600160a01b031633146109d85760405163070545c960e51b815260040160405180910390fd5b6105bf8161105c565b6109ea33610d82565b6105bf816110aa565b6001546001600160a01b03163314610a1e5760405163070545c960e51b815260040160405180910390fd5b6105bf816110d0565b6001546001600160a01b03163314610a525760405163070545c960e51b815260040160405180910390fd5b6105bf81611111565b60006109a782611146565b610a6f33610d82565b610a798282611193565b5050565b6001546001600160a01b03163314610aa85760405163070545c960e51b815260040160405180910390fd5b6105bf8161121c565b610aba33610d82565b610a798282610e4a565b6060610ad06004611288565b67ffffffffffffffff811115610ae857610ae86119d3565b604051908082528060200260200182016040528015610b11578160200160208202803683370190505b50905060005b610b216004611288565b811015610b6f57610b33600482611292565b828281518110610b4557610b456118e8565b6001600160a01b039092166020928302919091019091015280610b6781611914565b915050610b17565b5090565b610b7c33610d82565b6105bf816112a5565b6001546001600160a01b03163314610bb05760405163070545c960e51b815260040160405180910390fd5b600080546001600160a01b0319166001600160a01b03831617905550565b6001546001600160a01b03163314610bf95760405163070545c960e51b815260040160405180910390fd5b6105bf816112e7565b610c0b33610d82565b828114610c2b576040516381e4d28d60e01b815260040160405180910390fd5b60005b838110156106cb57610c7e858583818110610c4b57610c4b6118e8565b9050602002016020810190610c60919061173a565b848484818110610c7257610c726118e8565b90506020020135611193565b80610c8881611914565b915050610c2e565b600d8190556040518181527fad852bc3e1d8ed93d9b2d9290bdb1d945c12994fd7b826f5ff91ec56245aefda906020015b60405180910390a150565b60028054600180546001600160a01b0383166001600160a01b031991821681179092559091169091556040519081527f5d5d6e01b731c3e68060f7fe13156f6197d4aeffc2d6f498e34c717ae616b7349060200160405180910390a1565b600d54811115610d4d5760405163cd9ba70160e01b815260040160405180910390fd5b600c8190556040518181527f2985ceccbff6f8695faca980a17eb9a590d2f080d024f944d3c7743ba038c39990602001610cc1565b6001546001600160a01b03828116911614801590610da65750610da481610937565b155b156105bf576040516306a22f2960e01b815260040160405180910390fd5b610dcf60048261136a565b610dec57604051638716f5eb60e01b815260040160405180910390fd5b6001600160a01b038116600090815260066020526040812055610e1060048261138c565b506040516001600160a01b03821681527f09a1db4b80c32706328728508c941a6b954f31eb5affd32f236c1fd405f8fea490602001610cc1565b610e5560048361136a565b15610e735760405163165e236760e01b815260040160405180910390fd5b6001600160a01b0382166000908152600660205260409020819055604080516001600160a01b0384168152602081018390527f2f564a83158ad1831793ad3e69257b52f39ece5d49cb0d8746708ecb9ef964da910160405180910390a1610edb6004836113a1565b505050565b60125460ff1615610ef457610ef4816113b6565b6105bf816113df565b610f0681611146565b610f23576040516398ae0b2160e01b815260040160405180910390fd5b6001600160a01b0381166000908152600760205260409020429055610f4781611499565b6040516001600160a01b03821681527fac848b4596fbd35b139e8ee158748a1c8091becf3e830c628b4a79ad869d170290602001610cc1565b60006109a7824861195c565b60098054610100600160a81b0319166101006001600160a01b038416908102919091179091556040519081527f0fec338132ef1fa68cd11242357e5e5e5af67dfd0c957b53ef411bca535817ef90602001610cc1565b600e80546001600160a01b0319166001600160a01b038616908117909155600f8490556010839055601182905560408051918252602082018590528101839052606081018290527fadc260414d0381ec9727c6f819aa0ebe789ad81016c176765f40d3bc301e5d6b9060800160405180910390a150505050565b600a80546001600160a01b0319166001600160a01b0383169081179091556040519081527f77e14ebc8982ca2b21d8410b77a6ca8a857864dfab5d337f154fbacea73c119190602001610cc1565b806000036110cb57604051636972b64d60e01b815260040160405180910390fd5b600855565b6012805460ff19168215159081179091556040519081527fa9bf0ee725a8887f07a03c36e33aa100bb0218d44b9fff855be8504c480ab99b90602001610cc1565b600b8190556040518181527f6c434ba0e7a3588c2330d8f479f247d9269f069a8d630dbb2cb60a7382a487f090602001610cc1565b6000611151826114f4565b61115d57506000919050565b816001600160a01b031663650d188061117584611566565b6040518263ffffffff1660e01b815260040161096691815260200190565b61119e60048361136a565b6111bb57604051638716f5eb60e01b815260040160405180910390fd5b6001600160a01b0382166000908152600660205260409020819055604080516001600160a01b0384168152602081018390527fe4471c38177bd412e0358beccddbe74bad9465520f4f24a76c013bd404b0b0de910160405180910390a15050565b60095481151560ff909116151503611247576040516337fe120d60e21b815260040160405180910390fd5b6009805460ff19168215159081179091556040519081527f878ac8a2ca79520471f8f3c8494fa802c03ce3bf034252aad7f22318984fdbdb90602001610cc1565b60006109a7825490565b600061129e8383611599565b9392505050565b6112ae81611499565b6040516001600160a01b03821681527fee8d688761ac1d0fda49e2ac999f0e46b3beaf16857a8e8905aeab2987dc8d3890602001610cc1565b6001600160a01b03811661130e5760405163d92e233d60e01b815260040160405180910390fd5b600280546001600160a01b0319166001600160a01b038381169182179092556001546040805191909316815260208101919091527f6353ec38ac394f8be94bfafcdd3580d356470599059eaeebedc3207e1cc03dec9101610cc1565b6001600160a01b0381166000908152600183016020526040812054151561129e565b600061129e836001600160a01b0384166115c3565b600061129e836001600160a01b0384166116b6565b6001600160a01b03811632146105bf57604051639f8129d160e01b815260040160405180910390fd5b600954600e54600f54601054601154604051637cea367960e11b81526001600160a01b0387811660048301529485166024820152604481019390935260648301919091526084820152610100909204169063f9d46cf29060a4016020604051808303816000875af1158015611458573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061147c91906119b6565b6105bf57604051636959565560e11b815260040160405180910390fd5b60035460405163d6d2dcf960e01b81526001600160a01b0383811660048301529091169063d6d2dcf990602401600060405180830381600087803b1580156114e057600080fd5b505af11580156106cb573d6000803e3d6000fd5b600061150160048361136a565b61151e57604051638716f5eb60e01b815260040160405180910390fd5b600854158061155157506008546001600160a01b03831660009081526007602052604090205461154e9190611944565b42115b1561155e57506001919050565b506000919050565b6001600160a01b03811660009081526006602052604081205480820361158f5750600092915050565b61129e488261195c565b60008260000182815481106115b0576115b06118e8565b9060005260206000200154905092915050565b600081815260018301602052604081205480156116ac5760006115e760018361192d565b85549091506000906115fb9060019061192d565b905081811461166057600086600001828154811061161b5761161b6118e8565b906000526020600020015490508087600001848154811061163e5761163e6118e8565b6000918252602080832090910192909255918252600188019052604090208390555b8554869080611671576116716119e9565b6001900381819060005260206000200160009055905585600101600086815260200190815260200160002060009055600193505050506109a7565b60009150506109a7565b60008181526001830160205260408120546116fd575081546001818101845560008481526020808220909301849055845484825282860190935260409020919091556109a7565b5060006109a7565b60006020828403121561171757600080fd5b5035919050565b80356001600160a01b038116811461173557600080fd5b919050565b60006020828403121561174c57600080fd5b61129e8261171e565b60008083601f84011261176757600080fd5b50813567ffffffffffffffff81111561177f57600080fd5b6020830191508360208260051b850101111561179a57600080fd5b9250929050565b600080600080604085870312156117b757600080fd5b843567ffffffffffffffff808211156117cf57600080fd5b6117db88838901611755565b909650945060208701359150808211156117f457600080fd5b5061180187828801611755565b95989497509550505050565b6000806000806080858703121561182357600080fd5b61182c8561171e565b966020860135965060408601359560600135945092505050565b80151581146105bf57600080fd5b60006020828403121561186657600080fd5b813561129e81611846565b6000806040838503121561188457600080fd5b61188d8361171e565b946020939093013593505050565b6020808252825182820181905260009190848201906040850190845b818110156118dc5783516001600160a01b0316835292840192918401916001016118b7565b50909695505050505050565b634e487b7160e01b600052603260045260246000fd5b634e487b7160e01b600052601160045260246000fd5b600060018201611926576119266118fe565b5060010190565b60008282101561193f5761193f6118fe565b500390565b60008219821115611957576119576118fe565b500190565b6000816000190483118215151615611976576119766118fe565b500290565b60008261199857634e487b7160e01b600052601260045260246000fd5b500490565b6000602082840312156119af57600080fd5b5051919050565b6000602082840312156119c857600080fd5b815161129e81611846565b634e487b7160e01b600052604160045260246000fd5b634e487b7160e01b600052603160045260246000fdfea2646970667358221220b429647db0fefae6ece436dad772253058c37f466309c3275b83872515d846ac64736f6c634300080f0033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b506004361061025e5760003560e01c806372da828a11610146578063d9f9027f116100c3578063ec342ad011610087578063ec342ad014610514578063ef47da6d14610532578063f11a1d1a14610545578063f235757f14610558578063fb2a410a1461056b578063fbea57091461057857600080fd5b8063d9f9027f146104c7578063dd7ba420146104dc578063e06a7cb9146104ef578063e3056a34146104f8578063ea3c2b9c1461050b57600080fd5b806392b3b2651161010a57806392b3b265146104685780639f4713031461047b578063b9a52e281461048e578063bedb86fb146104a1578063c9411e22146104b457600080fd5b806372da828a1461041357806373da47c81461042657806374c2ca831461042f578063780b5c231461044257806390f296431461045557600080fd5b806326e6cd26116101df5780635905b407116101a35780635905b407146103a65780635c975abb146103b957806362ba54a9146103d6578063634c7bb5146103df57806365834acc146103f75780636b1b6e3e1461040a57600080fd5b806326e6cd261461033a57806328584aa71461034d57806336df7ea51461036d5780633ff8bbf6146103805780634cc18e571461039357600080fd5b806313f6986d1161022657806313f6986d146102f057806314f29a1d146102f857806316ea58da1461030b578063175188e81461031457806325fc3b221461032757600080fd5b806301526a43146102635780630187aea0146102785780630c340a241461029457806310262803146102bf5780631078f388146102df575b600080fd5b610276610271366004611705565b61058b565b005b610281600d5481565b6040519081526020015b60405180910390f35b6001546102a7906001600160a01b031681565b6040516001600160a01b03909116815260200161028b565b6102816102cd36600461173a565b60076020526000908152604090205481565b6000546001600160a01b03166102a7565b6102766105c2565b610276610306366004611705565b6105f7565b610281600b5481565b61027661032236600461173a565b61062b565b6102766103353660046117a1565b61063d565b61027661034836600461173a565b6106d2565b61028161035b36600461173a565b60066020526000908152604090205481565b61027661037b36600461173a565b61071b565b600e546102a7906001600160a01b031681565b6102766103a136600461173a565b6108c6565b6102766103b436600461180d565b6108fa565b6009546103c69060ff1681565b604051901515815260200161028b565b61028160105481565b6009546102a79061010090046001600160a01b031681565b6103c661040536600461173a565b610937565b61028160115481565b61027661042136600461173a565b6109ad565b610281600f5481565b61027661043d366004611705565b6109e1565b610276610450366004611854565b6109f3565b610276610463366004611705565b610a27565b6003546102a7906001600160a01b031681565b6103c661048936600461173a565b610a5b565b61027661049c366004611871565b610a66565b6102766104af366004611854565b610a7d565b6102766104c2366004611871565b610ab1565b6104cf610ac4565b60405161028b919061189b565b6102766104ea36600461173a565b610b73565b61028160085481565b6002546102a7906001600160a01b031681565b610281600c5481565b61051d61271081565b60405163ffffffff909116815260200161028b565b61027661054036600461173a565b610b85565b600a546102a7906001600160a01b031681565b61027661056636600461173a565b610bce565b6012546103c69060ff1681565b6102766105863660046117a1565b610c02565b6001546001600160a01b031633146105b65760405163070545c960e51b815260040160405180910390fd5b6105bf81610c90565b50565b6002546001600160a01b031633146105ed57604051639ba0305d60e01b815260040160405180910390fd5b6105f5610ccc565b565b6001546001600160a01b031633146106225760405163070545c960e51b815260040160405180910390fd5b6105bf81610d2a565b61063433610d82565b6105bf81610dc4565b61064633610d82565b828114610666576040516381e4d28d60e01b815260040160405180910390fd5b60005b838110156106cb576106b9858583818110610686576106866118e8565b905060200201602081019061069b919061173a565b8484848181106106ad576106ad6118e8565b90506020020135610e4a565b806106c381611914565b915050610669565b5050505050565b6001546001600160a01b031633146106fd5760405163070545c960e51b815260040160405180910390fd5b600380546001600160a01b0319166001600160a01b03831617905550565b60005a905061072933610ee0565b60095460ff161561074d576040516313d0ff5960e31b815260040160405180910390fd5b61075682610efd565b60005a9050600061271063ffffffff16600c5461078a600b54858761077b919061192d565b6107859190611944565b610f80565b610794919061195c565b61079e919061197b565b600a54604051633b46f5db60e21b8152600481018390529192506000916001600160a01b039091169063ed1bd76c90602401602060405180830381865afa1580156107ed573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610811919061199d565b6009546040516308a336b960e11b81523360048201526024810183905291925061010090046001600160a01b0316906311466d7290604401600060405180830381600087803b15801561086357600080fd5b505af1158015610877573d6000803e3d6000fd5b5050600b54604080518881526020810188905280820192909252517f5b3acbf5cbe55940e1bd9235bb985ccca97e9028d7489290f08e6504e76b88d39350908190036060019150a15050505050565b6001546001600160a01b031633146108f15760405163070545c960e51b815260040160405180910390fd5b6105bf81610f8c565b6001546001600160a01b031633146109255760405163070545c960e51b815260040160405180910390fd5b61093184848484610fe2565b50505050565b60008054604051631960d2b360e21b81526001600160a01b038481166004830152909116906365834acc906024015b602060405180830381865afa158015610983573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906109a791906119b6565b92915050565b6001546001600160a01b031633146109d85760405163070545c960e51b815260040160405180910390fd5b6105bf8161105c565b6109ea33610d82565b6105bf816110aa565b6001546001600160a01b03163314610a1e5760405163070545c960e51b815260040160405180910390fd5b6105bf816110d0565b6001546001600160a01b03163314610a525760405163070545c960e51b815260040160405180910390fd5b6105bf81611111565b60006109a782611146565b610a6f33610d82565b610a798282611193565b5050565b6001546001600160a01b03163314610aa85760405163070545c960e51b815260040160405180910390fd5b6105bf8161121c565b610aba33610d82565b610a798282610e4a565b6060610ad06004611288565b67ffffffffffffffff811115610ae857610ae86119d3565b604051908082528060200260200182016040528015610b11578160200160208202803683370190505b50905060005b610b216004611288565b811015610b6f57610b33600482611292565b828281518110610b4557610b456118e8565b6001600160a01b039092166020928302919091019091015280610b6781611914565b915050610b17565b5090565b610b7c33610d82565b6105bf816112a5565b6001546001600160a01b03163314610bb05760405163070545c960e51b815260040160405180910390fd5b600080546001600160a01b0319166001600160a01b03831617905550565b6001546001600160a01b03163314610bf95760405163070545c960e51b815260040160405180910390fd5b6105bf816112e7565b610c0b33610d82565b828114610c2b576040516381e4d28d60e01b815260040160405180910390fd5b60005b838110156106cb57610c7e858583818110610c4b57610c4b6118e8565b9050602002016020810190610c60919061173a565b848484818110610c7257610c726118e8565b90506020020135611193565b80610c8881611914565b915050610c2e565b600d8190556040518181527fad852bc3e1d8ed93d9b2d9290bdb1d945c12994fd7b826f5ff91ec56245aefda906020015b60405180910390a150565b60028054600180546001600160a01b0383166001600160a01b031991821681179092559091169091556040519081527f5d5d6e01b731c3e68060f7fe13156f6197d4aeffc2d6f498e34c717ae616b7349060200160405180910390a1565b600d54811115610d4d5760405163cd9ba70160e01b815260040160405180910390fd5b600c8190556040518181527f2985ceccbff6f8695faca980a17eb9a590d2f080d024f944d3c7743ba038c39990602001610cc1565b6001546001600160a01b03828116911614801590610da65750610da481610937565b155b156105bf576040516306a22f2960e01b815260040160405180910390fd5b610dcf60048261136a565b610dec57604051638716f5eb60e01b815260040160405180910390fd5b6001600160a01b038116600090815260066020526040812055610e1060048261138c565b506040516001600160a01b03821681527f09a1db4b80c32706328728508c941a6b954f31eb5affd32f236c1fd405f8fea490602001610cc1565b610e5560048361136a565b15610e735760405163165e236760e01b815260040160405180910390fd5b6001600160a01b0382166000908152600660205260409020819055604080516001600160a01b0384168152602081018390527f2f564a83158ad1831793ad3e69257b52f39ece5d49cb0d8746708ecb9ef964da910160405180910390a1610edb6004836113a1565b505050565b60125460ff1615610ef457610ef4816113b6565b6105bf816113df565b610f0681611146565b610f23576040516398ae0b2160e01b815260040160405180910390fd5b6001600160a01b0381166000908152600760205260409020429055610f4781611499565b6040516001600160a01b03821681527fac848b4596fbd35b139e8ee158748a1c8091becf3e830c628b4a79ad869d170290602001610cc1565b60006109a7824861195c565b60098054610100600160a81b0319166101006001600160a01b038416908102919091179091556040519081527f0fec338132ef1fa68cd11242357e5e5e5af67dfd0c957b53ef411bca535817ef90602001610cc1565b600e80546001600160a01b0319166001600160a01b038616908117909155600f8490556010839055601182905560408051918252602082018590528101839052606081018290527fadc260414d0381ec9727c6f819aa0ebe789ad81016c176765f40d3bc301e5d6b9060800160405180910390a150505050565b600a80546001600160a01b0319166001600160a01b0383169081179091556040519081527f77e14ebc8982ca2b21d8410b77a6ca8a857864dfab5d337f154fbacea73c119190602001610cc1565b806000036110cb57604051636972b64d60e01b815260040160405180910390fd5b600855565b6012805460ff19168215159081179091556040519081527fa9bf0ee725a8887f07a03c36e33aa100bb0218d44b9fff855be8504c480ab99b90602001610cc1565b600b8190556040518181527f6c434ba0e7a3588c2330d8f479f247d9269f069a8d630dbb2cb60a7382a487f090602001610cc1565b6000611151826114f4565b61115d57506000919050565b816001600160a01b031663650d188061117584611566565b6040518263ffffffff1660e01b815260040161096691815260200190565b61119e60048361136a565b6111bb57604051638716f5eb60e01b815260040160405180910390fd5b6001600160a01b0382166000908152600660205260409020819055604080516001600160a01b0384168152602081018390527fe4471c38177bd412e0358beccddbe74bad9465520f4f24a76c013bd404b0b0de910160405180910390a15050565b60095481151560ff909116151503611247576040516337fe120d60e21b815260040160405180910390fd5b6009805460ff19168215159081179091556040519081527f878ac8a2ca79520471f8f3c8494fa802c03ce3bf034252aad7f22318984fdbdb90602001610cc1565b60006109a7825490565b600061129e8383611599565b9392505050565b6112ae81611499565b6040516001600160a01b03821681527fee8d688761ac1d0fda49e2ac999f0e46b3beaf16857a8e8905aeab2987dc8d3890602001610cc1565b6001600160a01b03811661130e5760405163d92e233d60e01b815260040160405180910390fd5b600280546001600160a01b0319166001600160a01b038381169182179092556001546040805191909316815260208101919091527f6353ec38ac394f8be94bfafcdd3580d356470599059eaeebedc3207e1cc03dec9101610cc1565b6001600160a01b0381166000908152600183016020526040812054151561129e565b600061129e836001600160a01b0384166115c3565b600061129e836001600160a01b0384166116b6565b6001600160a01b03811632146105bf57604051639f8129d160e01b815260040160405180910390fd5b600954600e54600f54601054601154604051637cea367960e11b81526001600160a01b0387811660048301529485166024820152604481019390935260648301919091526084820152610100909204169063f9d46cf29060a4016020604051808303816000875af1158015611458573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061147c91906119b6565b6105bf57604051636959565560e11b815260040160405180910390fd5b60035460405163d6d2dcf960e01b81526001600160a01b0383811660048301529091169063d6d2dcf990602401600060405180830381600087803b1580156114e057600080fd5b505af11580156106cb573d6000803e3d6000fd5b600061150160048361136a565b61151e57604051638716f5eb60e01b815260040160405180910390fd5b600854158061155157506008546001600160a01b03831660009081526007602052604090205461154e9190611944565b42115b1561155e57506001919050565b506000919050565b6001600160a01b03811660009081526006602052604081205480820361158f5750600092915050565b61129e488261195c565b60008260000182815481106115b0576115b06118e8565b9060005260206000200154905092915050565b600081815260018301602052604081205480156116ac5760006115e760018361192d565b85549091506000906115fb9060019061192d565b905081811461166057600086600001828154811061161b5761161b6118e8565b906000526020600020015490508087600001848154811061163e5761163e6118e8565b6000918252602080832090910192909255918252600188019052604090208390555b8554869080611671576116716119e9565b6001900381819060005260206000200160009055905585600101600086815260200190815260200160002060009055600193505050506109a7565b60009150506109a7565b60008181526001830160205260408120546116fd575081546001818101845560008481526020808220909301849055845484825282860190935260409020919091556109a7565b5060006109a7565b60006020828403121561171757600080fd5b5035919050565b80356001600160a01b038116811461173557600080fd5b919050565b60006020828403121561174c57600080fd5b61129e8261171e565b60008083601f84011261176757600080fd5b50813567ffffffffffffffff81111561177f57600080fd5b6020830191508360208260051b850101111561179a57600080fd5b9250929050565b600080600080604085870312156117b757600080fd5b843567ffffffffffffffff808211156117cf57600080fd5b6117db88838901611755565b909650945060208701359150808211156117f457600080fd5b5061180187828801611755565b95989497509550505050565b6000806000806080858703121561182357600080fd5b61182c8561171e565b966020860135965060408601359560600135945092505050565b80151581146105bf57600080fd5b60006020828403121561186657600080fd5b813561129e81611846565b6000806040838503121561188457600080fd5b61188d8361171e565b946020939093013593505050565b6020808252825182820181905260009190848201906040850190845b818110156118dc5783516001600160a01b0316835292840192918401916001016118b7565b50909695505050505050565b634e487b7160e01b600052603260045260246000fd5b634e487b7160e01b600052601160045260246000fd5b600060018201611926576119266118fe565b5060010190565b60008282101561193f5761193f6118fe565b500390565b60008219821115611957576119576118fe565b500190565b6000816000190483118215151615611976576119766118fe565b500290565b60008261199857634e487b7160e01b600052601260045260246000fd5b500490565b6000602082840312156119af57600080fd5b5051919050565b6000602082840312156119c857600080fd5b815161129e81611846565b634e487b7160e01b600052604160045260246000fd5b634e487b7160e01b600052603160045260246000fdfea2646970667358221220b429647db0fefae6ece436dad772253058c37f466309c3275b83872515d846ac64736f6c634300080f0033",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {
+      "addStrategies(address[],uint256[])": {
+        "params": {
+          "_requiredAmount": "Array of amount of gas that each strategy requires to execute",
+          "_strategies": "Array of addresses of strategies to add"
+        }
+      },
+      "addStrategy(address,uint256)": {
+        "params": {
+          "_requiredAmount": "Amount of gas that the strategy requires to execute",
+          "_strategy": "Address of the strategy to add"
+        }
+      },
+      "forceWork(address)": {
+        "params": {
+          "_strategy": "Address of the strategy to be worked"
+        }
+      },
+      "removeStrategy(address)": {
+        "params": {
+          "_strategy": "Address of the strategy to remove"
+        }
+      },
+      "setGasBonus(uint256)": {
+        "params": {
+          "_gasBonus": "New amount of gas to add to cover unaccounted gas"
+        }
+      },
+      "setGasMultiplier(uint256)": {
+        "params": {
+          "_gasMultiplier": "New multiplier that boosts gas record to calculate the keeper reward"
+        }
+      },
+      "setKeep3r(address)": {
+        "params": {
+          "_keep3r": "Address of the new Keep3r contract"
+        }
+      },
+      "setKeep3rHelper(address)": {
+        "params": {
+          "_keep3rHelper": "Address of the new Keep3rHelper contract"
+        }
+      },
+      "setKeep3rRequirements(address,uint256,uint256,uint256)": {
+        "params": {
+          "_age": "Amount of seconds since keeper registration required to work the job",
+          "_bond": "Address of the token required to bond to work the job",
+          "_earned": "Amount of KP3R earnings required to work the job",
+          "_minBond": "Amount of tokens required to bond to work the job"
+        }
+      },
+      "setMaxMultiplier(uint256)": {
+        "params": {
+          "_maxMultiplier": "New maximum acceptable gasMultiplier to be set"
+        }
+      },
+      "setMechanicsRegistry(address)": {
+        "params": {
+          "_mechanicsRegistry": "Address of the new MechanicsRegistry contract"
+        }
+      },
+      "setOnlyEOA(bool)": {
+        "params": {
+          "_onlyEOA": "Whether the keeper is required to be an EOA or not"
+        }
+      },
+      "setPause(bool)": {
+        "params": {
+          "_paused": "Whether the contract should be paused or not"
+        }
+      },
+      "setPendingGovernor(address)": {
+        "params": {
+          "_pendingGovernor": "Address of the proposed new governor"
+        }
+      },
+      "setV2Keeper(address)": {
+        "params": {
+          "_v2Keeper": "Address of the new v2Keeper to set"
+        }
+      },
+      "setWorkCooldown(uint256)": {
+        "params": {
+          "_workCooldown": "Amount of seconds to wait until a strategy can be worked again"
+        }
+      },
+      "strategies()": {
+        "returns": {
+          "_strategies": "List of added strategies"
+        }
+      },
+      "updateRequiredAmount(address,uint256)": {
+        "params": {
+          "_requiredAmount": "New amount of gas that te strategy requires to execute",
+          "_strategy": "Address of the strategy to modify"
+        }
+      },
+      "updateRequiredAmounts(address[],uint256[])": {
+        "params": {
+          "_requiredAmounts": "Array of new amounts of gas that each strategy requires to execute",
+          "_strategies": "Array of addresses of strategies to modify"
+        }
+      },
+      "work(address)": {
+        "params": {
+          "_strategy": "Address of the strategy to be worked"
+        }
+      },
+      "workable(address)": {
+        "params": {
+          "_strategy": "Address of the strategy to query"
+        },
+        "returns": {
+          "_isWorkable": "Whether the queried strategy is workable or not"
+        }
+      }
+    },
+    "version": 1
+  },
+  "userdoc": {
+    "errors": {
+      "KeeperNotValid()": [
+        {
+          "notice": "Throws when a keeper fails the validation"
+        }
+      ],
+      "NoChangeInPause()": [
+        {
+          "notice": "Throws when governor tries to switch pause to the same state as before"
+        }
+      ],
+      "OnlyEOA()": [
+        {
+          "notice": "Throws when keeper is not tx.origin"
+        }
+      ],
+      "OnlyGovernor()": [
+        {
+          "notice": "Throws if a non-governor user tries to call a OnlyGovernor function"
+        }
+      ],
+      "OnlyGovernorOrMechanic()": [
+        {
+          "notice": "Throws when a OnlyGovernorOrMechanic function is called from an unknown address"
+        }
+      ],
+      "OnlyPendingGovernor()": [
+        {
+          "notice": "Throws if a non-pending-governor user tries to call a OnlyPendingGovernor function"
+        }
+      ],
+      "Paused()": [
+        {
+          "notice": "Throws when a keeper tries to work a paused contract"
+        }
+      ],
+      "StrategyAlreadyAdded()": [
+        {
+          "notice": "Throws if the strategy being added has already been added"
+        }
+      ],
+      "StrategyNotAdded()": [
+        {
+          "notice": "Throws if the strategy being summoned is not added"
+        }
+      ],
+      "StrategyNotWorkable()": [
+        {
+          "notice": "Throws if a keeper tries to work a non-workable strategy"
+        }
+      ],
+      "WrongLengths()": [
+        {
+          "notice": "Throws if a set of correlated input param arrays differ in lengths"
+        }
+      ],
+      "ZeroAddress()": [
+        {
+          "notice": "Throws if a variable is assigned to the zero address"
+        }
+      ],
+      "ZeroCooldown()": [
+        {
+          "notice": "Throws if the cooldown is being set to 0"
+        }
+      ]
+    },
+    "events": {
+      "ForceWorked(address)": {
+        "notice": "Emitted when a strategy is force-worked by governor or mechanic"
+      },
+      "GasBonusSet(uint256)": {
+        "notice": "Emitted when a new gas bonus amount is set"
+      },
+      "GasMetered(uint256,uint256,uint256)": {
+        "notice": "Emitted when a metered job is worked"
+      },
+      "GasMultiplierSet(uint256)": {
+        "notice": "Emitted when a new gas bonus multiplier is set"
+      },
+      "Keep3rHelperSet(address)": {
+        "notice": "Emitted when a new Keep3rHelper contract is set"
+      },
+      "Keep3rRequirementsSet(address,uint256,uint256,uint256)": {
+        "notice": "Emitted when a new set of requirements is set"
+      },
+      "Keep3rSet(address)": {
+        "notice": "Emitted when a new Keep3r contract is set"
+      },
+      "KeeperWorked(address)": {
+        "notice": "Emitted when a strategy is worked"
+      },
+      "MaxMultiplierSet(uint256)": {
+        "notice": "Emitted when a new gas bonus multiplier maximum is set"
+      },
+      "OnlyEOASet(bool)": {
+        "notice": "Emitted when onlyEOA is set"
+      },
+      "PauseSet(bool)": {
+        "notice": "Emitted when the contract pause is switched"
+      },
+      "PendingGovernorAccepted(address)": {
+        "notice": "Emitted when a new governor is set"
+      },
+      "PendingGovernorSet(address,address)": {
+        "notice": "Emitted when a new pending governor is set"
+      },
+      "StrategyAdded(address,uint256)": {
+        "notice": "Emitted when a new strategy is added"
+      },
+      "StrategyModified(address,uint256)": {
+        "notice": "Emitted when a strategy is modified"
+      },
+      "StrategyRemoved(address)": {
+        "notice": "Emitted when a strategy is removed"
+      }
+    },
+    "kind": "user",
+    "methods": {
+      "acceptPendingGovernor()": {
+        "notice": "Allows a proposed governor to accept the governance"
+      },
+      "forceWork(address)": {
+        "notice": "Function to be called by governor or mechanics that triggers the execution of the given strategyThis function bypasses the workable checks"
+      },
+      "setGasBonus(uint256)": {
+        "notice": "Allows governor to set a new gas bonus amount"
+      },
+      "setGasMultiplier(uint256)": {
+        "notice": "Allows governor to set a new gas multiplier"
+      },
+      "setKeep3r(address)": {
+        "notice": "Allows governor to set a new Keep3r contract"
+      },
+      "setKeep3rHelper(address)": {
+        "notice": "Allows governor to set a new Keep3rHelper contract"
+      },
+      "setKeep3rRequirements(address,uint256,uint256,uint256)": {
+        "notice": "Allows the governor to set new requirements to work the job"
+      },
+      "setMaxMultiplier(uint256)": {
+        "notice": "Allows governor to set a new gas multiplier maximum"
+      },
+      "setMechanicsRegistry(address)": {
+        "notice": "Allows governor to set a new MechanicsRegistry contract"
+      },
+      "setOnlyEOA(bool)": {
+        "notice": "Allows governor to set the onlyEOA condition"
+      },
+      "setPause(bool)": {
+        "notice": "Allows governor to pause or unpause the contract"
+      },
+      "setPendingGovernor(address)": {
+        "notice": "Allows a governor to propose a new governor"
+      },
+      "work(address)": {
+        "notice": "Function to be called by the keeper that triggers the execution of the given strategy"
+      }
+    },
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 1234,
+        "contract": "solidity/contracts/TendV2Keep3rJob.sol:TendV2Keep3rJob",
+        "label": "_mechanicsRegistry",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_contract(IMechanicsRegistry)1341"
+      },
+      {
+        "astId": 2847,
+        "contract": "solidity/contracts/TendV2Keep3rJob.sol:TendV2Keep3rJob",
+        "label": "governor",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_address"
+      },
+      {
+        "astId": 2850,
+        "contract": "solidity/contracts/TendV2Keep3rJob.sol:TendV2Keep3rJob",
+        "label": "pendingGovernor",
+        "offset": 0,
+        "slot": "2",
+        "type": "t_address"
+      },
+      {
+        "astId": 1718,
+        "contract": "solidity/contracts/TendV2Keep3rJob.sol:TendV2Keep3rJob",
+        "label": "v2Keeper",
+        "offset": 0,
+        "slot": "3",
+        "type": "t_contract(IV2Keeper)6170"
+      },
+      {
+        "astId": 1721,
+        "contract": "solidity/contracts/TendV2Keep3rJob.sol:TendV2Keep3rJob",
+        "label": "_availableStrategies",
+        "offset": 0,
+        "slot": "4",
+        "type": "t_struct(AddressSet)933_storage"
+      },
+      {
+        "astId": 1726,
+        "contract": "solidity/contracts/TendV2Keep3rJob.sol:TendV2Keep3rJob",
+        "label": "requiredAmount",
+        "offset": 0,
+        "slot": "6",
+        "type": "t_mapping(t_address,t_uint256)"
+      },
+      {
+        "astId": 1731,
+        "contract": "solidity/contracts/TendV2Keep3rJob.sol:TendV2Keep3rJob",
+        "label": "lastWorkAt",
+        "offset": 0,
+        "slot": "7",
+        "type": "t_mapping(t_address,t_uint256)"
+      },
+      {
+        "astId": 1734,
+        "contract": "solidity/contracts/TendV2Keep3rJob.sol:TendV2Keep3rJob",
+        "label": "workCooldown",
+        "offset": 0,
+        "slot": "8",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 3701,
+        "contract": "solidity/contracts/TendV2Keep3rJob.sol:TendV2Keep3rJob",
+        "label": "paused",
+        "offset": 0,
+        "slot": "9",
+        "type": "t_bool"
+      },
+      {
+        "astId": 3077,
+        "contract": "solidity/contracts/TendV2Keep3rJob.sol:TendV2Keep3rJob",
+        "label": "keep3r",
+        "offset": 1,
+        "slot": "9",
+        "type": "t_address"
+      },
+      {
+        "astId": 3152,
+        "contract": "solidity/contracts/TendV2Keep3rJob.sol:TendV2Keep3rJob",
+        "label": "keep3rHelper",
+        "offset": 0,
+        "slot": "10",
+        "type": "t_address"
+      },
+      {
+        "astId": 3156,
+        "contract": "solidity/contracts/TendV2Keep3rJob.sol:TendV2Keep3rJob",
+        "label": "gasBonus",
+        "offset": 0,
+        "slot": "11",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 3160,
+        "contract": "solidity/contracts/TendV2Keep3rJob.sol:TendV2Keep3rJob",
+        "label": "gasMultiplier",
+        "offset": 0,
+        "slot": "12",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 3168,
+        "contract": "solidity/contracts/TendV2Keep3rJob.sol:TendV2Keep3rJob",
+        "label": "maxMultiplier",
+        "offset": 0,
+        "slot": "13",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 2974,
+        "contract": "solidity/contracts/TendV2Keep3rJob.sol:TendV2Keep3rJob",
+        "label": "requiredBond",
+        "offset": 0,
+        "slot": "14",
+        "type": "t_address"
+      },
+      {
+        "astId": 2978,
+        "contract": "solidity/contracts/TendV2Keep3rJob.sol:TendV2Keep3rJob",
+        "label": "requiredMinBond",
+        "offset": 0,
+        "slot": "15",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 2981,
+        "contract": "solidity/contracts/TendV2Keep3rJob.sol:TendV2Keep3rJob",
+        "label": "requiredEarnings",
+        "offset": 0,
+        "slot": "16",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 2984,
+        "contract": "solidity/contracts/TendV2Keep3rJob.sol:TendV2Keep3rJob",
+        "label": "requiredAge",
+        "offset": 0,
+        "slot": "17",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 3648,
+        "contract": "solidity/contracts/TendV2Keep3rJob.sol:TendV2Keep3rJob",
+        "label": "onlyEOA",
+        "offset": 0,
+        "slot": "18",
+        "type": "t_bool"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_array(t_bytes32)dyn_storage": {
+        "base": "t_bytes32",
+        "encoding": "dynamic_array",
+        "label": "bytes32[]",
+        "numberOfBytes": "32"
+      },
+      "t_bool": {
+        "encoding": "inplace",
+        "label": "bool",
+        "numberOfBytes": "1"
+      },
+      "t_bytes32": {
+        "encoding": "inplace",
+        "label": "bytes32",
+        "numberOfBytes": "32"
+      },
+      "t_contract(IMechanicsRegistry)1341": {
+        "encoding": "inplace",
+        "label": "contract IMechanicsRegistry",
+        "numberOfBytes": "20"
+      },
+      "t_contract(IV2Keeper)6170": {
+        "encoding": "inplace",
+        "label": "contract IV2Keeper",
+        "numberOfBytes": "20"
+      },
+      "t_mapping(t_address,t_uint256)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => uint256)",
+        "numberOfBytes": "32",
+        "value": "t_uint256"
+      },
+      "t_mapping(t_bytes32,t_uint256)": {
+        "encoding": "mapping",
+        "key": "t_bytes32",
+        "label": "mapping(bytes32 => uint256)",
+        "numberOfBytes": "32",
+        "value": "t_uint256"
+      },
+      "t_struct(AddressSet)933_storage": {
+        "encoding": "inplace",
+        "label": "struct EnumerableSet.AddressSet",
+        "members": [
+          {
+            "astId": 932,
+            "contract": "solidity/contracts/TendV2Keep3rJob.sol:TendV2Keep3rJob",
+            "label": "_inner",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_struct(Set)632_storage"
+          }
+        ],
+        "numberOfBytes": "64"
+      },
+      "t_struct(Set)632_storage": {
+        "encoding": "inplace",
+        "label": "struct EnumerableSet.Set",
+        "members": [
+          {
+            "astId": 627,
+            "contract": "solidity/contracts/TendV2Keep3rJob.sol:TendV2Keep3rJob",
+            "label": "_values",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_array(t_bytes32)dyn_storage"
+          },
+          {
+            "astId": 631,
+            "contract": "solidity/contracts/TendV2Keep3rJob.sol:TendV2Keep3rJob",
+            "label": "_indexes",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_mapping(t_bytes32,t_uint256)"
+          }
+        ],
+        "numberOfBytes": "64"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}

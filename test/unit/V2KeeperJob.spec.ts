@@ -123,9 +123,9 @@ describe('V2KeeperJob', () => {
       expect(await keep3rJob.internalWorkable(strategy)).to.be.false;
     });
 
-    it('should return false if cooldown has expired', async () => {
-      await keep3rJob.setVariable('lastWorkAt', { [strategy]: timestamp - COOLDOWN });
-      expect(await keep3rJob.internalWorkable(strategy)).to.be.false;
+    it('should return true if cooldown has expired', async () => {
+      await keep3rJob.setVariable('lastWorkAt', { [strategy]: timestamp - 1 - COOLDOWN });
+      expect(await keep3rJob.internalWorkable(strategy)).to.be.true;
     });
   });
 

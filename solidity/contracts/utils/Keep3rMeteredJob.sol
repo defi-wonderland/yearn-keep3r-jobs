@@ -7,11 +7,11 @@ import '../../interfaces/utils/IKeep3rMeteredJob.sol';
 
 abstract contract Keep3rMeteredJob is IKeep3rMeteredJob, Keep3rJob {
   /// @inheritdoc IKeep3rMeteredJob
-  address public keep3rHelper = 0xD36Ac9Ff5562abb541F51345f340FB650547a661;
+  address public keep3rHelper = 0xeDDe080E28Eb53532bD1804de51BD9Cd5cADF0d4;
   /// @inheritdoc IKeep3rMeteredJob
-  uint256 public gasBonus = 86_000;
+  uint256 public gasBonus = 102_000;
   /// @inheritdoc IKeep3rMeteredJob
-  uint256 public gasMultiplier = 12_000;
+  uint256 public gasMultiplier = 10_000;
   /// @inheritdoc IKeep3rMeteredJob
   uint32 public constant BASE = 10_000;
   /// @inheritdoc IKeep3rMeteredJob
@@ -46,9 +46,9 @@ abstract contract Keep3rMeteredJob is IKeep3rMeteredJob, Keep3rJob {
     _isValidKeeper(msg.sender);
     _;
     uint256 _gasAfterWork = gasleft();
-    uint256 _reward = (_calculateGas(_initialGas - _gasAfterWork + gasBonus) * gasMultiplier) / BASE;
-    uint256 _payment = IKeep3rHelper(keep3rHelper).quote(_reward);
-    IKeep3rV2(keep3r).bondedPayment(msg.sender, _payment);
+    uint256 _reward = IKeep3rHelper(keep3rHelper).getRewardAmountFor(msg.sender, _initialGas - _gasAfterWork + gasBonus);
+    _reward = (_reward * gasMultiplier) / BASE;
+    IKeep3rV2(keep3r).bondedPayment(msg.sender, _reward);
     emit GasMetered(_initialGas, _gasAfterWork, gasBonus);
   }
 
@@ -75,11 +75,7 @@ abstract contract Keep3rMeteredJob is IKeep3rMeteredJob, Keep3rJob {
     emit GasMultiplierSet(gasMultiplier);
   }
 
-  function _calculateGas(uint256 _gasUsed) internal view returns (uint256 _resultingGas) {
-    _resultingGas = block.basefee * _gasUsed;
-  }
-
   function _calculateCredits(uint256 _gasUsed) internal view returns (uint256 _credits) {
-    return IKeep3rHelper(keep3rHelper).getRewardAmount(_calculateGas(_gasUsed));
+    return IKeep3rHelper(keep3rHelper).getRewardAmount(_gasUsed);
   }
 }

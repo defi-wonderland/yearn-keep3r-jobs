@@ -18,7 +18,7 @@ describe('Keep3rMeteredJob', () => {
   before(async () => {
     [, governor] = await ethers.getSigners();
     keep3rHelper = await smock.fake('IKeep3rHelper', {
-      address: '0xD36Ac9Ff5562abb541F51345f340FB650547a661',
+      address: '0xeDDe080E28Eb53532bD1804de51BD9Cd5cADF0d4',
     });
     jobFactory = await smock.mock<Keep3rMeteredJobForTest__factory>('Keep3rMeteredJobForTest');
   });

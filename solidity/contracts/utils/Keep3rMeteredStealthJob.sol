@@ -35,9 +35,9 @@ abstract contract Keep3rMeteredStealthJob is IKeep3rStealthJob, Keep3rMeteredJob
     _;
 
     uint256 _gasAfterWork = _getGasLeft();
-    uint256 _reward = (_calculateGas(_initialGas - _gasAfterWork + gasBonus) * gasMultiplier) / BASE;
-    uint256 _payment = IKeep3rHelper(keep3rHelper).quote(_reward);
-    IKeep3rV2(keep3r).bondedPayment(_keeper, _payment);
+    uint256 _reward = IKeep3rHelper(keep3rHelper).getRewardAmountFor(_keeper, _initialGas - _gasAfterWork + gasBonus);
+    _reward = (_reward * gasMultiplier) / BASE;
+    IKeep3rV2(keep3r).bondedPayment(_keeper, _reward);
     emit GasMetered(_initialGas, _gasAfterWork, gasBonus);
   }
 

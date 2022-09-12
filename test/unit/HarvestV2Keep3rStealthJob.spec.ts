@@ -141,7 +141,7 @@ describe('HarvestV2Keep3rStealthJob', () => {
     });
 
     it('should reduce the gasMultiplier by 15%', async () => {
-      const BASE_MULTIPLIER = 12_000; // over a 10_000 base
+      const BASE_MULTIPLIER = 10_000; // over a 10_000 base
       expect(await deployed.gasMultiplier()).to.eq((BASE_MULTIPLIER * 85) / 100);
     });
 

@@ -33,7 +33,7 @@ contract BasicStealthJob is Keep3rMeteredStealthJob {
 
   function _workHard(uint256 _howHard) internal {
     for (uint256 _i = 0; _i < _howHard; _i++) {
-      nonce++;
+      dataset[nonce++] = address(this);
     }
   }
 

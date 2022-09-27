@@ -42,7 +42,7 @@ contract HarvestV2Keep3rStealthJob is IV2Keep3rStealthJob, V2KeeperJob, Pausable
     _setStealthRelayer(_stealthRelayer);
     _setKeep3rRequirements(_bond, _minBond, _earned, _age);
     _setOnlyEOA(_onlyEOA);
-    _setGasBonus(127_000); // calculated fixed bonus to compensate unaccounted gas
+    _setGasBonus(143_200); // calculated fixed bonus to compensate unaccounted gas
     _setGasMultiplier((gasMultiplier * 850) / 1_000); // expected 15% refunded gas
   }
 

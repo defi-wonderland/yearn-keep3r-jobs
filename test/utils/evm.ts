@@ -33,6 +33,13 @@ export const advanceBlocks = async (blocks: BigNumberish) => {
   });
 };
 
+export const setBaseFee = async (baseFee: BigNumberish) => {
+  await network.provider.request({
+    method: 'hardhat_setNextBlockBaseFeePerGas',
+    params: [BigNumber.from(baseFee).toHexString().replace('0x0', '0x')],
+  });
+};
+
 export const reset = async (forking?: { [key: string]: any }) => {
   const params = forking ? [{ forking }] : [];
   await network.provider.request({

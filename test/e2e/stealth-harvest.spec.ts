@@ -1,5 +1,5 @@
 import { getMainnetSdk } from '@dethcrypto/eth-sdk-client';
-import { StealthRelayer, UniswapV3Pool, StealthVault } from '@eth-sdk-types';
+import { StealthRelayer, UniswapV3Pool } from '@eth-sdk-types';
 import { HarvestV2Keep3rStealthJob, IBaseStrategy, IKeep3rV2 } from '@typechained';
 import { TransactionResponse } from '@ethersproject/abstract-provider';
 import { JsonRpcSigner } from '@ethersproject/providers';
@@ -38,7 +38,7 @@ const workableStrategies = [
   // },
 ];
 
-describe('Harvest @skip-on-coverage', () => {
+describe('StealthHarvest @skip-on-coverage', () => {
   let governor: JsonRpcSigner;
   let signer: SignerWithAddress;
   let keeper: JsonRpcSigner;
@@ -63,7 +63,7 @@ describe('Harvest @skip-on-coverage', () => {
 
         [signer] = await ethers.getSigners();
         const sdk = getMainnetSdk(signer);
-        ({ harvestJob, keep3rV2, keeper, governor, bondedKeeper } = await common.setupHarvestJob());
+        ({ harvestJob, keep3rV2, keeper, governor, bondedKeeper } = await common.setupStealthHarvestJob());
         stealthRelayer = sdk.stealthRelayer;
 
         pool = sdk.uniswapV3Pool.attach(constants.KP3R_WETH_V3_POOL_ADDRESS);

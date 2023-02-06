@@ -2,11 +2,14 @@ import { JsonRpcSigner } from '@ethersproject/providers';
 import {
   HarvestV2Keep3rStealthJob,
   HarvestV2Keep3rStealthJob__factory,
+  HarvestPublicKeep3rJob,
+  HarvestPublicKeep3rJob__factory,
   TendV2Keep3rJob,
   TendV2Keep3rJob__factory,
   IStealthRelayer,
   IStealthVault,
   IV2Keeper,
+  IKeeperWrapper,
   IKeep3rV2,
   IERC20,
 } from '@typechained';
@@ -53,7 +56,7 @@ export async function initializeStateVariables(keep3rV2: IKeep3rV2, keeper: stri
   await keep3rV2.connect(jobWallet).bondedPayment(keeper, 420);
 }
 
-export async function setupHarvestJob(): Promise<{
+export async function setupStealthHarvestJob(): Promise<{
   harvestJob: HarvestV2Keep3rStealthJob;
   keep3rV2: IKeep3rV2;
   v2Keeper: IV2Keeper;
@@ -106,6 +109,47 @@ export async function setupHarvestJob(): Promise<{
   await keep3rV2.connect(proxyGovernor).forceLiquidityCreditsToJob(harvestJob.address, toUnit(10));
 
   return { harvestJob, keep3rV2, v2Keeper, stealthRelayer, governor, keeper, bondedKeeper };
+}
+
+export async function setupPublicHarvestJob(): Promise<{
+  harvestJob: HarvestPublicKeep3rJob;
+  keep3rV2: IKeep3rV2;
+  publicKeeper: IKeeperWrapper;
+  governor: JsonRpcSigner;
+  keeper: JsonRpcSigner;
+  bondedKeeper: JsonRpcSigner;
+}> {
+  let harvestJob: HarvestPublicKeep3rJob;
+  const harvestJobFactory = (await ethers.getContractFactory('HarvestPublicKeep3rJob')) as HarvestPublicKeep3rJob__factory;
+
+  harvestJob = await harvestJobFactory.deploy(
+    constants.V2_KEEPER_GOVERNOR,
+    constants.MECHANICS_REGISTRY,
+    constants.PUBLIC_KEEPER,
+    constants.VAULT_REGISTRY,
+    constants.HARVEST_COOLDOWN,
+    constants.KEEP3R_V2
+  );
+
+  const keep3rV2 = (await ethers.getContractAt('IKeep3rV2', constants.KEEP3R_V2)) as IKeep3rV2;
+
+  const governor = await wallet.impersonate(constants.V2_KEEPER_GOVERNOR);
+  const proxyGovernor = await wallet.impersonate(constants.KP3R_V1_PROXY_GOVERNANCE_ADDRESS);
+  await wallet.setBalance({ account: governor._address, balance: toUnit(1000) });
+  await wallet.setBalance({ account: proxyGovernor._address, balance: toUnit(1000) });
+
+  const publicKeeper = (await ethers.getContractAt('IKeeperWrapper', constants.PUBLIC_KEEPER)) as IKeeperWrapper;
+
+  await keep3rV2.connect(proxyGovernor).setBondTime(0);
+
+  const { keeper } = await activateKeeper(keep3rV2, wallet.generateRandomAddress(), 0, true);
+  const { keeper: bondedKeeper } = await activateKeeper(keep3rV2, wallet.generateRandomAddress(), constants.MAX_BOND, true);
+
+  // adds job to keep3rV2
+  await keep3rV2.addJob(harvestJob.address);
+  await keep3rV2.connect(proxyGovernor).forceLiquidityCreditsToJob(harvestJob.address, toUnit(10));
+
+  return { harvestJob, keep3rV2, publicKeeper, governor, keeper, bondedKeeper };
 }
 
 export async function setupTendJob(): Promise<{

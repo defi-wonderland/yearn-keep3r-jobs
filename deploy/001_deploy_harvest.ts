@@ -33,6 +33,14 @@ const deployFunction: DeployFunction = async function (hre: HardhatRuntimeEnviro
     log: true,
   });
 
+  await hre.deployments.execute(
+    'Keep3rV2',
+    { from: deployer, gasLimit: 2e5, log: true },
+    'changeJobOwnership',
+    jobAddress,
+    constants.V2_KEEPER_GOVERNOR
+  );
+
   if (await shouldVerifyContract(deploy)) {
     await hre.run('verify:verify', {
       address: deploy.address,
